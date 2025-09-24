@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>One2Scene: Geometric Consistent Explorable 3D Scene Generation from a Single Image</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:image" content="https://one2scene5406.github.io/img/overview_combined.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1711">
+    <meta property="og:image:height" content="576">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://one2scene5406.github.io/"/>
+    <meta property="og:title" content="One2Scene: Geometric Consistent Explorable 3D Scene Generation from a Single Image" />
+    <meta property="og:description" content="We present One2Scene, a novel method for generating geometrically consistent and explorable 3D scenes from a single input image. Our approach enables high-quality novel view synthesis while maintaining geometric consistency across different viewpoints, allowing users to freely navigate and explore the reconstructed 3D environment."/>
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="One2Scene: Geometric Consistent Explorable 3D Scene Generation from a Single Image" />
+    <meta name="twitter:description" content="We present One2Scene, a novel method for generating geometrically consistent and explorable 3D scenes from a single input image. Our approach enables high-quality novel view synthesis while maintaining geometric consistency across different viewpoints, allowing users to freely navigate and explore the reconstructed 3D environment."/>
+    <meta name="twitter:image" content="https://one2scene5406.github.io/img/one2scene_pipeline.png" />
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+    <style>
+        .method-pill {
+            cursor: pointer;
+            margin: 0 5px;
+        }
+        .method-pill.active .nav-link {
+            background-color: #007bff;
+            color: white;
+        }
+        .scene-pill {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .scene-pill.active {
+            border: 3px solid #007bff;
+            transform: scale(1.1);
+        }
+        .pill-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .video-container {
+            margin: 20px 0;
+        }
+        .video-placeholder {
+            width: 100%;
+            height: 200px;
+            background-color: #f0f0f0;
+            border: 2px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 14px;
+            text-align: center;
+        }
+    </style>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8ZERS5BVPS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-8ZERS5BVPS');
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script defer src="js/fontawesome.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+</head>
+
+<body style="padding: 1%; width: 100%">
+    <div class="container-lg text-center" style="max-width: 1500px; margin: auto;" id="main">
+        <div class="row">
+            <h2 class="col-md-12 text-center">
+                <b>One2Scene</b>: Geometric Consistent Explorable 3D Scene Generation from a Single Image</br> 
+            </h2>
+        </div>
+        
+        <div class="row text-center">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 text-center">
+                <ul class="list-inline">
+                    <li>Anonymous Authors</li>
+                </ul>
+            </div>
+            <div class="col-md-3"></div>
+            <div class="col-md-12 text-center">
+                Anonymous Institution
+            </div>
+            <div class="col-md-12 text-center">
+                Under Review
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>Abstract</h3>
+                <p class="text-justify">
+                    Generating explorable 3D scenes from a single image is a highly challenging problem in 3D vision. Existing methods struggle to support free exploration, often producing severe geometric distortions and noisy artifacts when the viewpoint moves far from the original perspective. We introduce <b>One2Scene</b>, an effective framework that decomposes this ill-posed problem into three tractable subtasks to enable immersive explorable scene generation.
+                    We first use a panorama generator to produce anchor views from a single input image as initialization. Then, we lift these 2D anchors into an explicit 3D geometric scaffold via a generalizable, feed-forward Gaussian Splatting network. Rather than directly reconstructing from the panorama, we reformulate the task as multi-view stereo matching across sparse anchors, which allows us to leverage robust geometric priors learned from large-scale multi-view data. A bidirectional feature fusion module is used to enforce cross-view consistency, yielding an efficient and geometrically reliable scaffold.
+                    Finally, the scaffold serves as a strong prior for a novel view generator that can produce photorealistic and geometrically accurate views at arbitrary cameras. By explicitly constructing and conditioning on a 3D-consistent scaffold, One2Scene works stably under large camera motions, facilitating immersive scene exploration. Extensive experiments show that One2Scene substantially outperforms state-of-the-art methods in panorama depth estimation, feed-forward 360° reconstruction, and explorable 3D scene generation.
+                </p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3><b>One2Scene</b> Overview</h3>
+                <image src="img/one2scene_pipeline.png" width="90%" style="display: block; margin: auto;"></image>
+                <p class="text-justify">
+                    Our method consists of three stages: (a) an anchor view generation stage to establish an initial 360-degree representation, (b) a feed-forward 3D Gaussian Splatting stage to construct an explicit 3D geometric scaffold, and (c) a synthesis stage that leverages the scaffold information to produce high-quality novel views. The pipeline enables geometrically consistent and photorealistic novel view synthesis from a single input image.
+                </p>
+            </div>
+        </div>
+        <br><br>
+
+        <div class="row">
+            <h2 class="col-md-12 text-center">Result Gallery</h2>
+        </div>
+
+        <!-- 修复后的视频展示部分 -->
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="col-md-12 mb-4">
+                    <div class="card">
+                        <!-- 检查视频文件是否存在，如果不存在显示占位符 -->
+                        <video width="100%" controls style="max-width: 600px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <source src="videos/comparison/co3d_bench_185_19987_38634_zeronvs_vs_ours_rgb.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-placeholder" style="display: none;">
+                            <div>
+                                <strong>Video not found</strong><br>
+                                Expected: videos/comparison/co3d_bench_185_19987_38634_zeronvs_vs_ours_rgb.mp4<br>
+                                <small>Please check if the video file exists in the correct path</small>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Indoor Living Room</h5>
+                            <p class="card-text">Single image to explorable 3D scene</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>Comparison to Other Methods</h3>
+                <p class="text-justify" style="text-align: left;">
+                    Compare the results of our One2Scene method (right) with existing single-image 3D reconstruction methods (left).
+                    Our method produces more geometrically consistent and visually appealing 3D scenes from single images,
+                    with better handling of occluded regions and more stable novel view synthesis.
+                    Try selecting different methods and scenes!
+                </p>
+
+                <div id="baseline-compare">
+                    <div class="row m-2">
+                        <ul class="nav nav-pills justify-content-center" role="navigation">
+                            <li class="nav-item method-pill active" data-value="depth2scene">
+                                <a class="nav-link active">Depth2Scene<span style="font-size: 10px;"><br>(Single-image baseline)</span></a>
+                            </li>
+                            <li class="nav-item method-pill" data-value="pix2pix3d">
+                                <a class="nav-link">Pix2Pix3D<span style="font-size: 10px;"><br>(Image-to-3D baseline)</span></a>
+                            </li>
+                            <li class="nav-item method-pill" data-value="zero123">
+                                <a class="nav-link">Zero-1-to-3<span style="font-size: 10px;"><br>(Novel view synthesis)</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="video-container">
+                        <div class="row">
+                            <!-- Left video with label -->
+                            <div class="col-md-5 position-relative">
+                                <video class="video w-100" id="single-comp-left" loop playsinline autoplay muted onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                    <source src="videos/comparison/depth2scene_indoor1.mp4" type="video/mp4">
+                                </video>
+                                <div class="video-placeholder" style="display: none;">
+                                    Video file not found:<br>
+                                    <span id="left-video-path">videos/comparison/depth2scene_indoor1.mp4</span>
+                                </div>
+                                <div class="position-absolute top-0 start-2 bg-dark text-white p-1 opacity-75" id="single-comp-label-left">
+                                    Baseline
+                                </div>
+                            </div>
+
+                            <!-- Right video with label -->
+                            <div class="col-md-5 position-relative">
+                                <video class="video w-100" id="single-comp-right" loop playsinline autoplay muted onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                    <source src="videos/comparison/one2scene_indoor1.mp4" type="video/mp4">
+                                </video>
+                                <div class="video-placeholder" style="display: none;">
+                                    Video file not found:<br>
+                                    <span id="right-video-path">videos/comparison/one2scene_indoor1.mp4</span>
+                                </div>
+                                <div class="position-absolute top-0 start-2 bg-dark text-white p-1 opacity-75" id="single-comp-label-right">
+                                    One2Scene (ours)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Scene selection thumbnails -->
+                    <div class="pill-row scene-pills justify-content-center" id="scene-pills" role="group">
+                        <div class="pill scene-pill active m-2" data-value="indoor1" style="cursor: pointer;">
+                            <img class="card-img" src="img/thumb_indoor1.jpg" style="width: 80px; height: 60px; object-fit: cover; border-radius: 5px;" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjBGMEYwIi8+Cjx0ZXh0IHg9IjQwIiB5PSIzNSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEyIiBmaWxsPSIjOTk5OTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5JbmRvb3IxPC90ZXh0Pgo8L3N2Zz4K';">
+                        </div>
+                        <div class="pill scene-pill m-2" data-value="outdoor1" style="cursor: pointer;">
+                            <img class="card-img" src="img/thumb_outdoor1.jpg" style="width: 80px; height: 60px; object-fit: cover; border-radius: 5px;" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjBGMEYwIi8+Cjx0ZXh0IHg9IjQwIiB5PSIzNSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEyIiBmaWxsPSIjOTk5OTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5PdXRkb29yMTwvdGV4dD4KPC9zdmc+Cg==';">
+                        </div>
+                        <div class="pill scene-pill m-2" data-value="kitchen1" style="cursor: pointer;">
+                            <img class="card-img" src="img/thumb_kitchen1.jpg" style="width: 80px; height: 60px; object-fit: cover; border-radius: 5px;" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjBGMEYwIi8+Cjx0ZXh0IHg9IjQwIiB5PSIzNSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEyIiBmaWxsPSIjOTk5OTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5LaXRjaGVuMTwvdGV4dD4KPC9zdmc+Cg==';">
+                        </div>
+                        <div class="pill scene-pill m-2" data-value="bedroom1" style="cursor: pointer;">
+                            <img class="card-img" src="img/thumb_bedroom1.jpg" style="width: 80px; height: 60px; object-fit: cover; border-radius: 5px;" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjBGMEYwIi8+Cjx0ZXh0IHg9IjQwIiB5PSIzNSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEyIiBmaWxsPSIjOTk5OTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5CZWRyb29tMTwvdGV4dD4KPC9zdmc+Cg==';">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Comparison section functionality
+            let activeMethod = 'depth2scene';
+            let activeScene = 'indoor1';
+            
+            const methodPills = document.querySelectorAll('.method-pill');
+            const scenePills = document.querySelectorAll('.scene-pill');
+            const leftVideo = document.getElementById('single-comp-left');
+            const rightVideo = document.getElementById('single-comp-right');
+            const leftLabel = document.getElementById('single-comp-label-left');
+            const leftVideoPath = document.getElementById('left-video-path');
+            const rightVideoPath = document.getElementById('right-video-path');
+            
+            methodPills.forEach(pill => {
+                pill.addEventListener('click', function() {
+                    methodPills.forEach(p => p.classList.remove('active'));
+                    this.classList.add('active');
+                    activeMethod = this.getAttribute('data-value');
+                    updateComparison();
+                });
+            });
+            
+            scenePills.forEach(pill => {
+                pill.addEventListener('click', function() {
+                    scenePills.forEach(p => p.classList.remove('active'));
+                    this.classList.add('active');
+                    activeScene = this.getAttribute('data-value');
+                    updateComparison();
+                });
+            });
+            
+            function updateComparison() {
+                const leftVideoSrc = `videos/comparison/${activeMethod}_${activeScene}.mp4`;
+                const rightVideoSrc = `videos/comparison/one2scene_${activeScene}.mp4`;
+                
+                leftVideo.src = leftVideoSrc;
+                rightVideo.src = rightVideoSrc;
+                leftLabel.textContent = activeMethod.charAt(0).toUpperCase() + activeMethod.slice(1);
+                
+                if (leftVideoPath) leftVideoPath.textContent = leftVideoSrc;
+                if (rightVideoPath) rightVideoPath.textContent = rightVideoSrc;
+            }
+        </script>
+
+        <br><br>
+
+        <div class="col-md-8 col-md-offset-2 text-start">
+            <h4>Acknowledgements</h4>
+            <p class="text-justify" style="text-align: left;">
+                We would like to thank our collaborators and the research community for valuable discussions and insights.
+                Special thanks to the authors of previous single-image 3D reconstruction methods for providing baseline comparisons.
+                <br><br><br>
+            </p>
+        </div>
+
+        <section class="section" id="BibTeX">
+            <div class="col-md-8 col-md-offset-2 text-start">
+                <h2 class="title" style="text-align: center;">BibTeX</h2>
+                <pre style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; text-align: left;"><code>@article{one2scene2024,
+title={{One2Scene: Single Image to Explorable 3D Scenes}},
+author={Your Name and Co-authors},
+journal={arXiv preprint},
+year={2024}
+}</code></pre>
+            </div>
+        </section>
+
+        <br><br>
+    </div>
+</body>
+</html>
