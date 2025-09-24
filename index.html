@@ -216,11 +216,65 @@
           <div class="card">
             <div class="text-center">
               <video id="hero-video" controls playsinline muted style="max-width: 600px; width: 100%;">
-<<<<<<< HEAD
-                <source id="hero-video-source" src=videos/gallery/indoor_2.mp4" type="video/mp4" />
-=======
+                <source id="hero-video-source" src="videos/comparison/dtu_scan31_freenerf_vs_ours_rgb.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="video-placeholder" id="hero-placeholder">
+                <div>
+                  <strong>Video not found</strong><br />
+                  Expected: <span id="hero-path">videos/comparison/dtu_scan31_freenerf_vs_ours_rgb.mp4</span><br />
+                  <small>Please check if the video file exists in the correct path</small><br />
+                  <a class="btn-inline" id="hero-retry">Retry</a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Indoor Living Room</h5>
+              <p class="card-text">Single image to explorable 3D scene</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <!-- Top single video with graceful placeholder -->
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-12 mb-4">
+          <div class="card">
+            <div class="text-center">
+              <video id="hero-video" controls playsinline muted style="max-width: 600px; width: 100%;">
+                <source id="hero-video-source" src="videos/comparison/mipnerf360_kitchen_zeronvs_vs_ours_depth.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="video-placeholder" id="hero-placeholder">
+                <div>
+                  <strong>Video not found</strong><br />
+                  Expected: <span id="hero-path">videos/comparison/mipnerf360_kitchen_zeronvs_vs_ours_depth.mp4</span><br />
+                  <small>Please check if the video file exists in the correct path</small><br />
+                  <a class="btn-inline" id="hero-retry">Retry</a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Indoor Living Room</h5>
+              <p class="card-text">Single image to explorable 3D scene</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+        <!-- Top single video with graceful placeholder -->
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-12 mb-4">
+          <div class="card">
+            <div class="text-center">
+              <video id="hero-video" controls playsinline muted style="max-width: 600px; width: 100%;">
                 <source id="hero-video-source" src="videos/gallery/indoor_2.mp4" type="video/mp4" />
->>>>>>> 9568bf7 (Update index.html: fix video paths)
                 Your browser does not support the video tag.
               </video>
               <div class="video-placeholder" id="hero-placeholder">
@@ -240,6 +294,7 @@
         </div>
       </div>
     </div>
+
 
     <!-- Comparison section -->
     <div class="row">
@@ -278,7 +333,7 @@
                   <div class="video-placeholder" id="left-video-placeholder">
                     <div>
                       Video file not found:<br />
-                      <span id="left-video-path">videos/comparison/depth2scene_indoor1.mp4</span><br />
+                      <span id="left-video-path">videos/comparison/co3d_bench_185_19987_38634_diffusionerf_vs_ours_rgb.mp4</span><br />
                       <a class="btn-inline" id="left-retry">Retry</a>
                     </div>
                   </div>
@@ -292,13 +347,13 @@
               <div class="col-md-5 position-relative">
                 <div style="position: relative;">
                   <video class="video" id="single-comp-right" loop playsinline autoplay muted>
-                    <source id="single-comp-right-source" src="videos/comparison/one2scene_indoor1.mp4" type="video/mp4" />
+                    <source id="single-comp-right-source" src="videos/gallery/indoor_1.mp4" type="video/mp4" />
                   </video>
                   <div class="position-absolute-label" id="single-comp-label-right">One2Scene (ours)</div>
                   <div class="video-placeholder" id="right-video-placeholder">
                     <div>
                       Video file not found:<br />
-                      <span id="right-video-path">videos/comparison/one2scene_indoor1.mp4</span><br />
+                      <span id="right-video-path">videos/gallery/indoor_1.mp4</span><br />
                       <a class="btn-inline" id="right-retry">Retry</a>
                     </div>
                   </div>
