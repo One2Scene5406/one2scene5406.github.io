@@ -68,16 +68,16 @@
     }
     .video-placeholder {
       width: 100%;
-      height: 200px;
+      height: 150px;
       background-color: #f0f0f0;
       border: 2px dashed #ccc;
       display: none;
       align-items: center;
       justify-content: center;
       color: #666;
-      font-size: 14px;
+      font-size: 12px;
       text-align: center;
-      padding: 12px;
+      padding: 8px;
       border-radius: 6px;
     }
     .position-absolute-label {
@@ -89,7 +89,7 @@
       padding: 3px 6px;
       border-radius: 4px;
       font-size: 12px;
-      pointer-events: none; /* prevent overlay from blocking clicks */
+      pointer-events: none;
     }
     /* Make videos responsive */
     video {
@@ -99,19 +99,77 @@
       border-radius: 6px;
       background: #000;
     }
-    /* Card look for the top single video */
+    /* Card look for videos */
     .card {
       border: 1px solid #e3e3e3;
       border-radius: 6px;
-      padding: 10px;
+      padding: 8px;
+      margin-bottom: 20px;
+      height: 100%;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
     }
     .card-body {
-      text-align: left;
+      text-align: center;
+      padding: 8px;
     }
-    /* Mobile spacing tweaks */
-    @media (max-width: 767px) {
-      .col-md-5 {
-        margin-bottom: 12px;
+    .card-title {
+      font-size: 14px;
+      font-weight: bold;
+      margin: 8px 0 4px 0;
+      color: #333;
+    }
+    .card-text {
+      font-size: 12px;
+      color: #666;
+      margin: 0;
+    }
+    /* Gallery grid layout */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin: 30px 0;
+    }
+    .gallery-item {
+      width: 100%;
+    }
+    .gallery-video {
+      width: 100%;
+  aspect-ratio: 1 / 1;  /* 保持1:1比例 */
+  object-fit: cover;
+    }
+    /* Responsive design */
+    @media (max-width: 1200px) {
+      .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 768px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      .gallery-video {
+        height: 150px;
+      }
+      .card-title {
+        font-size: 13px;
+      }
+      .card-text {
+        font-size: 11px;
+      }
+    }
+    @media (max-width: 480px) {
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+      .gallery-video {
+        height: 180px;
       }
     }
     /* Buttons within placeholder */
@@ -207,753 +265,239 @@
 
     <div class="row">
       <h2 class="col-md-12 text-center">Result Gallery</h2>
-    </div>
-
-    <!-- Top single video with graceful placeholder -->
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <div class="col-md-12 mb-4">
-          <div class="card">
-            <div class="text-center">
-              <video id="hero-video" controls playsinline muted style="max-width: 600px; width: 100%;">
-                <source id="hero-video-source" src="videos/gallery/00028_f0_indoor_Dining_spaces_photorealistic_photorealistic_video.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              <div class="video-placeholder" id="hero-placeholder">
-                <div>
-                  <strong>Video not found</strong><br />
-                  Expected: <span id="hero-path">videos/gallery/00028_f0_indoor_Dining_spaces_photorealistic_photorealistic_video.mp4</span><br />
-                  <small>Please check if the video file exists in the correct path</small><br />
-                  <a class="btn-inline" id="hero-retry">Retry</a>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Indoor Living Room</h5>
-              <p class="card-text">Single image to explorable 3D scene</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    
-    <!-- Top single video with graceful placeholder -->
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <div class="col-md-12 mb-4">
-          <div class="card">
-            <div class="text-center">
-              <video id="hero-video" controls playsinline muted style="max-width: 600px; width: 100%;">
-                <source id="hero-video-source" src="videos/gallery/00149_f0_indoor_Living_spaces_photorealistic_photorealistic_video.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              <div class="video-placeholder" id="hero-placeholder">
-                <div>
-                  <strong>Video not found</strong><br />
-                  Expected: <span id="hero-path">videos/gallery/00149_f0_indoor_Living_spaces_photorealistic_photorealistic_video.mp4</span><br />
-                  <small>Please check if the video file exists in the correct path</small><br />
-                  <a class="btn-inline" id="hero-retry">Retry</a>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Indoor Living Room</h5>
-              <p class="card-text">Single image to explorable 3D scene</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-        <!-- Top single video with graceful placeholder -->
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <div class="col-md-12 mb-4">
-          <div class="card">
-            <div class="text-center">
-              <video id="second-video" controls playsinline muted style="max-width: 600px; width: 100%;">
-                <source id="second-video-source" src="videos/gallery/00186_f0_indoor_Living_spaces_photorealistic_photorealistic_video.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              <div class="video-placeholder" id="second-placeholder">
-                <div>
-                  <strong>Video not found</strong><br />
-                  Expected: <span id="second-path">videos/gallery/00186_f0_indoor_Living_spaces_photorealistic_photorealistic_video.mp4</span><br />
-                  <small>Please check if the video file exists in the correct path</small><br />
-                  <a class="btn-inline" id="second-retry">Retry</a>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Indoor Living Room</h5>
-              <p class="card-text">Single image to explorable 3D scene</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-        <!-- Top single video with graceful placeholder -->
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <div class="col-md-12 mb-4">
-          <div class="card">
-            <div class="text-center">
-              <video id="second-video" controls playsinline muted style="max-width: 600px; width: 100%;">
-                <source id="second-video-source" src="videos/gallery/00303_f1_indoor_Public_spaces_photorealistic_photorealistic_video.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              <div class="video-placeholder" id="second-placeholder">
-                <div>
-                  <strong>Video not found</strong><br />
-                  Expected: <span id="second-path">videos/gallery/00303_f1_indoor_Public_spaces_photorealistic_photorealistic_video.mp4</span><br />
-                  <small>Please check if the video file exists in the correct path</small><br />
-                  <a class="btn-inline" id="second-retry">Retry</a>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Indoor Living Room</h5>
-              <p class="card-text">Single image to explorable 3D scene</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-            <!-- Top single video with graceful placeholder -->
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <div class="col-md-12 mb-4">
-          <div class="card">
-            <div class="text-center">
-              <video id="second-video" controls playsinline muted style="max-width: 600px; width: 100%;">
-                <source id="second-video-source" src="videos/gallery/00441_f1_indoor_Workspaces_photorealistic_photorealistic_video.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              <div class="video-placeholder" id="second-placeholder">
-                <div>
-                  <strong>Video not found</strong><br />
-                  Expected: <span id="second-path">videos/gallery/00441_f1_indoor_Workspaces_photorealistic_photorealistic_video.mp4</span><br />
-                  <small>Please check if the video file exists in the correct path</small><br />
-                  <a class="btn-inline" id="second-retry">Retry</a>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Indoor Living Room</h5>
-              <p class="card-text">Single image to explorable 3D scene</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-            <!-- Top single video with graceful placeholder -->
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <div class="col-md-12 mb-4">
-          <div class="card">
-            <div class="text-center">
-              <video id="second-video" controls playsinline muted style="max-width: 600px; width: 100%;">
-                <source id="second-video-source" src="videos/gallery/00485_f1_indoor_Workspaces_photorealistic_photorealistic_video.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              <div class="video-placeholder" id="second-placeholder">
-                <div>
-                  <strong>Video not found</strong><br />
-                  Expected: <span id="second-path">videos/gallery/00485_f1_indoor_Workspaces_photorealistic_photorealistic_video.mp4</span><br />
-                  <small>Please check if the video file exists in the correct path</small><br />
-                  <a class="btn-inline" id="second-retry">Retry</a>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Indoor Living Room</h5>
-              <p class="card-text">Single image to explorable 3D scene</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-            <!-- Top single video with graceful placeholder -->
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <div class="col-md-12 mb-4">
-          <div class="card">
-            <div class="text-center">
-              <video id="second-video" controls playsinline muted style="max-width: 600px; width: 100%;">
-                <source id="second-video-source" src="videos/gallery/00488_f1_indoor_Workspaces_photorealistic_photorealistic_video.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              <div class="video-placeholder" id="second-placeholder">
-                <div>
-                  <strong>Video not found</strong><br />
-                  Expected: <span id="second-path">videos/gallery/00488_f1_indoor_Workspaces_photorealistic_photorealistic_video.mp4</span><br />
-                  <small>Please check if the video file exists in the correct path</small><br />
-                  <a class="btn-inline" id="second-retry">Retry</a>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Indoor Living Room</h5>
-              <p class="card-text">Single image to explorable 3D scene</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-            <!-- Top single video with graceful placeholder -->
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <div class="col-md-12 mb-4">
-          <div class="card">
-            <div class="text-center">
-              <video id="second-video" controls playsinline muted style="max-width: 600px; width: 100%;">
-                <source id="second-video-source" src="videos/gallery/00753_f2_outdoor_Suburb_photorealistic_photorealistic_video.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              <div class="video-placeholder" id="second-placeholder">
-                <div>
-                  <strong>Video not found</strong><br />
-                  Expected: <span id="second-path">videos/gallery/00753_f2_outdoor_Suburb_photorealistic_photorealistic_video.mp4</span><br />
-                  <small>Please check if the video file exists in the correct path</small><br />
-                  <a class="btn-inline" id="second-retry">Retry</a>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Indoor Living Room</h5>
-              <p class="card-text">Single image to explorable 3D scene</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-            <!-- Top single video with graceful placeholder -->
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <div class="col-md-12 mb-4">
-          <div class="card">
-            <div class="text-center">
-              <video id="second-video" controls playsinline muted style="max-width: 600px; width: 100%;">
-                <source id="second-video-source" src="videos/gallery/01079_f3_indoor_Dining_spaces_stylized_minecraft_game_video.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              <div class="video-placeholder" id="second-placeholder">
-                <div>
-                  <strong>Video not found</strong><br />
-                  Expected: <span id="second-path">videos/gallery/01079_f3_indoor_Dining_spaces_stylized_minecraft_game_video.mp4</span><br />
-                  <small>Please check if the video file exists in the correct path</small><br />
-                  <a class="btn-inline" id="second-retry">Retry</a>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Indoor Living Room</h5>
-              <p class="card-text">Single image to explorable 3D scene</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-            <!-- Top single video with graceful placeholder -->
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <div class="col-md-12 mb-4">
-          <div class="card">
-            <div class="text-center">
-              <video id="second-video" controls playsinline muted style="max-width: 600px; width: 100%;">
-                <source id="second-video-source" src="videos/gallery/01138_f3_indoor_Living_spaces_stylized_anime_video.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              <div class="video-placeholder" id="second-placeholder">
-                <div>
-                  <strong>Video not found</strong><br />
-                  Expected: <span id="second-path">videos/gallery/01138_f3_indoor_Living_spaces_stylized_anime_video.mp4</span><br />
-                  <small>Please check if the video file exists in the correct path</small><br />
-                  <a class="btn-inline" id="second-retry">Retry</a>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Indoor Living Room</h5>
-              <p class="card-text">Single image to explorable 3D scene</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-            <!-- Top single video with graceful placeholder -->
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <div class="col-md-12 mb-4">
-          <div class="card">
-            <div class="text-center">
-              <video id="second-video" controls playsinline muted style="max-width: 600px; width: 100%;">
-                <source id="second-video-source" src="videos/gallery/01173_f4_indoor_Living_spaces_stylized_anime_video.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              <div class="video-placeholder" id="second-placeholder">
-                <div>
-                  <strong>Video not found</strong><br />
-                  Expected: <span id="second-path">videos/gallery/01173_f4_indoor_Living_spaces_stylized_anime_video.mp4</span><br />
-                  <small>Please check if the video file exists in the correct path</small><br />
-                  <a class="btn-inline" id="second-retry">Retry</a>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Indoor Living Room</h5>
-              <p class="card-text">Single image to explorable 3D scene</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-            <!-- Top single video with graceful placeholder -->
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <div class="col-md-12 mb-4">
-          <div class="card">
-            <div class="text-center">
-              <video id="second-video" controls playsinline muted style="max-width: 600px; width: 100%;">
-                <source id="second-video-source" src="videos/gallery/01498_f5_indoor_Workspaces_stylized_anime_video.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              <div class="video-placeholder" id="second-placeholder">
-                <div>
-                  <strong>Video not found</strong><br />
-                  Expected: <span id="second-path">videos/gallery/01498_f5_indoor_Workspaces_stylized_anime_video.mp4</span><br />
-                  <small>Please check if the video file exists in the correct path</small><br />
-                  <a class="btn-inline" id="second-retry">Retry</a>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Indoor Living Room</h5>
-              <p class="card-text">Single image to explorable 3D scene</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-            <!-- Top single video with graceful placeholder -->
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <div class="col-md-12 mb-4">
-          <div class="card">
-            <div class="text-center">
-              <video id="second-video" controls playsinline muted style="max-width: 600px; width: 100%;">
-                <source id="second-video-source" src="videos/gallery/01736_f6_outdoor_Suburb_stylized_minecraft_game_video.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              <div class="video-placeholder" id="second-placeholder">
-                <div>
-                  <strong>Video not found</strong><br />
-                  Expected: <span id="second-path">videos/gallery/01736_f6_outdoor_Suburb_stylized_minecraft_game_video.mp4</span><br />
-                  <small>Please check if the video file exists in the correct path</small><br />
-                  <a class="btn-inline" id="second-retry">Retry</a>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Indoor Living Room</h5>
-              <p class="card-text">Single image to explorable 3D scene</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-            <!-- Top single video with graceful placeholder -->
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <div class="col-md-12 mb-4">
-          <div class="card">
-            <div class="text-center">
-              <video id="second-video" controls playsinline muted style="max-width: 600px; width: 100%;">
-                <source id="second-video-source" src="videos/gallery/00186_f0_indoor_Living_spaces_photorealistic_photorealistic_video.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              <div class="video-placeholder" id="second-placeholder">
-                <div>
-                  <strong>Video not found</strong><br />
-                  Expected: <span id="second-path">videos/gallery/00186_f0_indoor_Living_spaces_photorealistic_photorealistic_video.mp4</span><br />
-                  <small>Please check if the video file exists in the correct path</small><br />
-                  <a class="btn-inline" id="second-retry">Retry</a>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Indoor Living Room</h5>
-              <p class="card-text">Single image to explorable 3D scene</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-            <!-- Top single video with graceful placeholder -->
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <div class="col-md-12 mb-4">
-          <div class="card">
-            <div class="text-center">
-              <video id="second-video" controls playsinline muted style="max-width: 600px; width: 100%;">
-                <source id="second-video-source" src="videos/gallery/00186_f0_indoor_Living_spaces_photorealistic_photorealistic_video.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              <div class="video-placeholder" id="second-placeholder">
-                <div>
-                  <strong>Video not found</strong><br />
-                  Expected: <span id="second-path">videos/gallery/00186_f0_indoor_Living_spaces_photorealistic_photorealistic_video.mp4</span><br />
-                  <small>Please check if the video file exists in the correct path</small><br />
-                  <a class="btn-inline" id="second-retry">Retry</a>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Indoor Living Room</h5>
-              <p class="card-text">Single image to explorable 3D scene</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-            <!-- Top single video with graceful placeholder -->
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <div class="col-md-12 mb-4">
-          <div class="card">
-            <div class="text-center">
-              <video id="second-video" controls playsinline muted style="max-width: 600px; width: 100%;">
-                <source id="second-video-source" src="videos/gallery/00186_f0_indoor_Living_spaces_photorealistic_photorealistic_video.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              <div class="video-placeholder" id="second-placeholder">
-                <div>
-                  <strong>Video not found</strong><br />
-                  Expected: <span id="second-path">videos/gallery/00186_f0_indoor_Living_spaces_photorealistic_photorealistic_video.mp4</span><br />
-                  <small>Please check if the video file exists in the correct path</small><br />
-                  <a class="btn-inline" id="second-retry">Retry</a>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Indoor Living Room</h5>
-              <p class="card-text">Single image to explorable 3D scene</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Comparison section -->
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <h3>Comparison to Other Methods</h3>
-        <p class="text-justify" style="text-align: left;">
-          Compare the results of our One2Scene method (right) with existing single-image 3D reconstruction methods (left).
-          Our method produces more geometrically consistent and visually appealing 3D scenes from single images, with
-          better handling of occluded regions and more stable novel view synthesis. Try selecting different methods and scenes!
+      <div class="col-md-12">
+        <p class="text-center" style="color: #666; margin-bottom: 30px;">
+          Single image to explorable 3D scene generation results across different environments and styles
         </p>
+      </div>
+    </div>
 
-        <div id="baseline-compare">
-          <div class="row m-2">
-            <ul class="nav nav-pills justify-content-center" role="navigation">
-              <li class="nav-item method-pill active" data-value="depth2scene">
-                <a class="nav-link active">Depth2Scene<span style="font-size: 10px;"><br />(Single-image baseline)</span></a>
-              </li>
-              <li class="nav-item method-pill" data-value="pix2pix3d">
-                <a class="nav-link">Pix2Pix3D<span style="font-size: 10px;"><br />(Image-to-3D baseline)</span></a>
-              </li>
-              <li class="nav-item method-pill" data-value="zero123">
-                <a class="nav-link">Zero-1-to-3<span style="font-size: 10px;"><br />(Novel view synthesis)</span></a>
-              </li>
-            </ul>
-          </div>
+    <!-- Gallery Grid -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="gallery-grid">
+          <!-- Row 1 -->
 
-          <div class="video-container">
-            <div class="row">
-              <!-- Left video with label and placeholder -->
-              <div class="col-md-5 position-relative">
-                <div style="position: relative;">
-                  <video class="video" id="single-comp-left" loop playsinline autoplay muted>
-                    <source id="single-comp-left-source" src="videos/comparison/co3d_bench_185_19987_38634_diffusionerf_vs_ours_rgb.mp4" type="video/mp4" />
-                  </video>
-                  <div class="position-absolute-label" id="single-comp-label-left">Depth2scene</div>
-                  <div class="video-placeholder" id="left-video-placeholder">
-                    <div>
-                      Video file not found:<br />
-                      <span id="left-video-path">videos/comparison/co3d_bench_185_19987_38634_diffusionerf_vs_ours_rgb.mp4</span><br />
-                      <a class="btn-inline" id="left-retry">Retry</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Spacer -->
-              <div class="col-md-2 hidden-xs hidden-sm"></div>
-
-              <!-- Right video with label and placeholder -->
-              <div class="col-md-5 position-relative">
-                <div style="position: relative;">
-                  <video class="video" id="single-comp-right" loop playsinline autoplay muted>
-                    <source id="single-comp-right-source" src="videos/gallery/indoor_1.mp4" type="video/mp4" />
-                  </video>
-                  <div class="position-absolute-label" id="single-comp-label-right">One2Scene (ours)</div>
-                  <div class="video-placeholder" id="right-video-placeholder">
-                    <div>
-                      Video file not found:<br />
-                      <span id="right-video-path">videos/gallery/indoor_1.mp4</span><br />
-                      <a class="btn-inline" id="right-retry">Retry</a>
-                    </div>
-                  </div>
-                </div>
+            <div class="gallery-item">
+            <div class="card">
+              <video class="gallery-video" controls playsinline muted>
+                <source src="videos/gallery/00303_f1_indoor_Public_spaces_photorealistic_photorealistic_video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="card-body">
+                <h5 class="card-title">Public Space</h5>
+                <p class="card-text">Photorealistic Style</p>
               </div>
             </div>
           </div>
 
-          <!-- Scene selection thumbnails -->
-          <div class="pill-row scene-pills justify-content-center" id="scene-pills" role="group">
-            <div class="pill scene-pill active m-2" data-value="indoor1" style="cursor: pointer;">
-              <img
-                class="card-img"
-                src="img/thumb_indoor1.jpg"
-                style="width: 80px; height: 60px; object-fit: cover; border-radius: 5px;"
-                alt="indoor1"
-                onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iODAiIGhlaWdodD0iNjAiIGZpbGw9IiNGMEYwRjAiLz48dGV4dCB4PSI0MCIgeT0iMzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzk5OTk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SW5kb29yMTwvdGV4dD48L3N2Zz4K';"
-              />
-            </div>
-            <div class="pill scene-pill m-2" data-value="outdoor1" style="cursor: pointer;">
-              <img
-                class="card-img"
-                src="img/thumb_outdoor1.jpg"
-                style="width: 80px; height: 60px; object-fit: cover; border-radius: 5px;"
-                alt="outdoor1"
-                onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iODAiIGhlaWdodD0iNjAiIGZpbGw9IiNGMEYwRjAiLz48dGV4dCB4PSI0MCIgeT0iMzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzk5OTk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+T3V0ZG9vcjE8L3RleHQ+PC9zdmc+Cg==';"
-              />
-            </div>
-            <div class="pill scene-pill m-2" data-value="kitchen1" style="cursor: pointer;">
-              <img
-                class="card-img"
-                src="img/thumb_kitchen1.jpg"
-                style="width: 80px; height: 60px; object-fit: cover; border-radius: 5px;"
-                alt="kitchen1"
-                onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iODAiIGhlaWdodD0iNjAiIGZpbGw9IiNGMEYwRjAiLz48dGV4dCB4PSI0MCIgeT0iMzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzk5OTk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+S2l0Y2hlbjE8L3RleHQ+PC9zdmc+Cg==';"
-              />
-            </div>
-            <div class="pill scene-pill m-2" data-value="bedroom1" style="cursor: pointer;">
-              <img
-                class="card-img"
-                src="img/thumb_bedroom1.jpg"
-                style="width: 80px; height: 60px; object-fit: cover; border-radius: 5px;"
-                alt="bedroom1"
-                onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iODAiIGhlaWdodD0iNjAiIGZpbGw9IiNGMEYwRjAiLz48dGV4dCB4PSI0MCIgeT0iMzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzk5OTk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QmVkcm9vbTE8L3RleHQ+PC9zdmc+Cg==';"
-              />
+          <div class="gallery-item">
+            <div class="card">
+              <video class="gallery-video" controls playsinline muted>
+                <source src="videos/gallery/00028_f0_indoor_Dining_spaces_photorealistic_photorealistic_video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="card-body">
+                <h5 class="card-title">Indoor Dining Room</h5>
+                <p class="card-text">Photorealistic Style</p>
+              </div>
             </div>
           </div>
+
+ 
+          <div class="gallery-item">
+            <div class="card">
+              <video class="gallery-video" controls playsinline muted>
+                <source src="videos/gallery/00488_f1_indoor_Workspaces_photorealistic_photorealistic_video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="card-body">
+                <h5 class="card-title">Creative Workspace</h5>
+                <p class="card-text">Photorealistic Style</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <div class="card">
+              <video class="gallery-video" controls playsinline muted>
+                <source src="videos/gallery/00186_f0_indoor_Living_spaces_photorealistic_photorealistic_video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="card-body">
+                <h5 class="card-title">Modern Living Space</h5>
+                <p class="card-text">Photorealistic Style</p>
+              </div>
+            </div>
+          </div>
+
+
+
+          <!-- Row 2 -->
+          <div class="gallery-item">
+            <div class="card">
+              <video class="gallery-video" controls playsinline muted>
+                <source src="videos/gallery/00441_f1_indoor_Workspaces_photorealistic_photorealistic_video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="card-body">
+                <h5 class="card-title">Modern Workspace</h5>
+                <p class="card-text">Photorealistic Style</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <div class="card">
+              <video class="gallery-video" controls playsinline muted>
+                <source src="videos/gallery/00485_f1_indoor_Workspaces_photorealistic_photorealistic_video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="card-body">
+                <h5 class="card-title">Office Environment</h5>
+                <p class="card-text">Photorealistic Style</p>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="gallery-item">
+            <div class="card">
+              <video class="gallery-video" controls playsinline muted>
+                <source src="videos/gallery/00753_f2_outdoor_Suburb_photorealistic_photorealistic_video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="card-body">
+                <h5 class="card-title">Suburban Outdoor</h5>
+                <p class="card-text">Photorealistic Style</p>
+              </div>
+            </div>
+          </div>
+
+                   <div class="gallery-item">
+            <div class="card">
+              <video class="gallery-video" controls playsinline muted>
+                <source src="videos/gallery/00149_f0_indoor_Living_spaces_photorealistic_photorealistic_video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="card-body">
+                <h5 class="card-title">Indoor Living Room</h5>
+                <p class="card-text">Photorealistic Style</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 3 -->
+          <div class="gallery-item">
+            <div class="card">
+              <video class="gallery-video" controls playsinline muted>
+                <source src="videos/gallery/01079_f3_indoor_Dining_spaces_stylized_minecraft_game_video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="card-body">
+                <h5 class="card-title">Dining Space</h5>
+                <p class="card-text">Minecraft Style</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <div class="card">
+              <video class="gallery-video" controls playsinline muted>
+                <source src="videos/gallery/01138_f3_indoor_Living_spaces_stylized_anime_video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="card-body">
+                <h5 class="card-title">Living Room</h5>
+                <p class="card-text">Anime Style</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <div class="card">
+              <video class="gallery-video" controls playsinline muted>
+                <source src="videos/gallery/01173_f4_indoor_Living_spaces_stylized_anime_video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="card-body">
+                <h5 class="card-title">Cozy Living Space</h5>
+                <p class="card-text">Anime Style</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <div class="card">
+              <video class="gallery-video" controls playsinline muted>
+                <source src="videos/gallery/01498_f5_indoor_Workspaces_stylized_anime_video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="card-body">
+                <h5 class="card-title">Study Room</h5>
+                <p class="card-text">Anime Style</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 4 -->
+          <div class="gallery-item">
+            <div class="card">
+              <video class="gallery-video" controls playsinline muted>
+                <source src="videos/gallery/01736_f6_outdoor_Suburb_stylized_minecraft_game_video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="card-body">
+                <h5 class="card-title">Outdoor Scene</h5>
+                <p class="card-text">Minecraft Style</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <div class="card">
+              <video class="gallery-video" controls playsinline muted>
+                <source src="videos/gallery/00514_f1_outdoor_Aquatic_landscape_photorealistic_photorealistic_video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="card-body">
+                <h5 class="card-title">Aquatic Landscape</h5>
+                <p class="card-text">Photorealistic Style</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <div class="card">
+              <video class="gallery-video" controls playsinline muted>
+                <source src="videos/gallery/00756_f2_outdoor_Suburb_photorealistic_photorealistic_video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="card-body">
+                <h5 class="card-title">Suburban Street</h5>
+                <p class="card-text">Photorealistic Style</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <div class="card">
+              <video class="gallery-video" controls playsinline muted>
+                <source src="videos/gallery/01573_f5_outdoor_Aquatic_landscape_stylized_anime_video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="card-body">
+                <h5 class="card-title">Aquatic Landscape</h5>
+                <p class="card-text">Anime Style</p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
-
-    <br /><br />
-
-    <div class="col-md-8 col-md-offset-2 text-start">
-      <h4>Acknowledgements</h4>
-      <p class="text-justify" style="text-align: left;">
-        We would like to thank our collaborators and the research community for valuable discussions and insights.
-        Special thanks to the authors of previous single-image 3D reconstruction methods for providing baseline comparisons.
-        <br /><br /><br />
-      </p>
-    </div>
-
-    <section class="section" id="BibTeX">
-      <div class="col-md-8 col-md-offset-2 text-start">
-        <h2 class="title" style="text-align: center;">BibTeX</h2>
-        <pre style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; text-align: left;"><code>@article{one2scene2024,
-  title={{One2Scene: Single Image to Explorable 3D Scenes}},
-  author={Your Name and Co-authors},
-  journal={arXiv preprint},
-  year={2024}
-}</code></pre>
-      </div>
-    </section>
 
     <br /><br />
   </div>
-
-  <script>
-    // State
-    let activeMethod = 'depth2scene';
-    let activeScene = 'indoor1';
-
-    // Elements: hero video
-    const heroVideo = document.getElementById('hero-video');
-    const heroSource = document.getElementById('hero-video-source');
-    const heroPlaceholder = document.getElementById('hero-placeholder');
-    const heroPathSpan = document.getElementById('hero-path');
-    const heroRetry = document.getElementById('hero-retry');
-
-    // Elements: comparison videos
-    const leftVideo = document.getElementById('single-comp-left');
-    const leftSource = document.getElementById('single-comp-left-source');
-    const leftPlaceholder = document.getElementById('left-video-placeholder');
-    const leftVideoPath = document.getElementById('left-video-path');
-    const leftRetry = document.getElementById('left-retry');
-
-    const rightVideo = document.getElementById('single-comp-right');
-    const rightSource = document.getElementById('single-comp-right-source');
-    const rightPlaceholder = document.getElementById('right-video-placeholder');
-    const rightVideoPath = document.getElementById('right-video-path');
-    const rightRetry = document.getElementById('right-retry');
-
-    const leftLabel = document.getElementById('single-comp-label-left');
-    const rightLabel = document.getElementById('single-comp-label-right');
-
-    const methodPills = document.querySelectorAll('.method-pill');
-    const scenePills = document.querySelectorAll('.scene-pill');
-
-    // Helper: map method key to display name
-    function methodDisplayName(key) {
-      const map = {
-        depth2scene: 'Depth2Scene',
-        pix2pix3d: 'Pix2Pix3D',
-        zero123: 'Zero-1-to-3'
-      };
-      return map[key] || (key.charAt(0).toUpperCase() + key.slice(1));
-    }
-
-    // Helper: set video by updating its <source> and calling load()
-    function setVideo(videoEl, sourceEl, placeholderEl, url, autoPlay = true) {
-      // Hide placeholder, show video container
-      placeholderEl.style.display = 'none';
-      videoEl.style.display = 'block';
-
-      // Update the source and reload
-      sourceEl.src = url;
-      try {
-        videoEl.load();
-      } catch (e) {
-        // fallback: for very old browsers
-      }
-
-      if (autoPlay) {
-        const playPromise = videoEl.play();
-        if (playPromise && typeof playPromise.then === 'function') {
-          playPromise.catch(() => {
-            // Autoplay may be blocked; ignore silently.
-          });
-        }
-      }
-    }
-
-    // Wire events: onerror -> show placeholder; oncanplay -> ensure visible
-    function wireVideoEvents(videoEl, sourceEl, placeholderEl, pathSpanEl) {
-      // on error
-      videoEl.addEventListener('error', () => {
-        // Show placeholder, hide video
-        placeholderEl.style.display = 'flex';
-        videoEl.style.display = 'none';
-        if (pathSpanEl) {
-          // Display current absolute src to aid debugging
-          const currentSrc = sourceEl.src || '';
-          pathSpanEl.textContent = currentSrc;
-        }
-      });
-
-      // on can play
-      videoEl.addEventListener('canplay', () => {
-        placeholderEl.style.display = 'none';
-        videoEl.style.display = 'block';
-      });
-    }
-
-    function updateComparison() {
-      const leftVideoSrc = `videos/comparison/${activeMethod}_${activeScene}.mp4`;
-      const rightVideoSrc = `videos/comparison/one2scene_${activeScene}.mp4`;
-
-      // Update labels
-      leftLabel.textContent = methodDisplayName(activeMethod);
-      rightLabel.textContent = 'One2Scene (ours)';
-
-      // Update videos
-      setVideo(leftVideo, leftSource, leftPlaceholder, leftVideoSrc, true);
-      setVideo(rightVideo, rightSource, rightPlaceholder, rightVideoSrc, true);
-
-      // Update placeholders' path text (for error UI)
-      if (leftVideoPath) leftVideoPath.textContent = leftVideoSrc;
-      if (rightVideoPath) rightVideoPath.textContent = rightVideoSrc;
-    }
-
-    // Wire method pills
-    methodPills.forEach((pill) => {
-      pill.addEventListener('click', function () {
-        methodPills.forEach((p) => p.classList.remove('active'));
-        this.classList.add('active');
-        activeMethod = this.getAttribute('data-value');
-        updateComparison();
-      });
-    });
-
-    // Wire scene pills
-    scenePills.forEach((pill) => {
-      pill.addEventListener('click', function () {
-        scenePills.forEach((p) => p.classList.remove('active'));
-        this.classList.add('active');
-        activeScene = this.getAttribute('data-value');
-        updateComparison();
-      });
-    });
-
-    // Wire events for videos
-    wireVideoEvents(heroVideo, heroSource, heroPlaceholder, heroPathSpan);
-    wireVideoEvents(leftVideo, leftSource, leftPlaceholder, leftVideoPath);
-    wireVideoEvents(rightVideo, rightSource, rightPlaceholder, rightVideoPath);
-
-    // Retry buttons
-    if (heroRetry) {
-      heroRetry.addEventListener('click', () => {
-        setVideo(heroVideo, heroSource, heroPlaceholder, heroSource.getAttribute('src') || heroPathSpan.textContent, false);
-        heroVideo.play().catch(() => {});
-      });
-    }
-    if (leftRetry) {
-      leftRetry.addEventListener('click', () => {
-        const url = `videos/comparison/${activeMethod}_${activeScene}.mp4`;
-        setVideo(leftVideo, leftSource, leftPlaceholder, url, true);
-      });
-    }
-    if (rightRetry) {
-      rightRetry.addEventListener('click', () => {
-        const url = `videos/comparison/one2scene_${activeScene}.mp4`;
-        setVideo(rightVideo, rightSource, rightPlaceholder, url, true);
-      });
-    }
-
-    // Ensure initial paths shown in placeholders match initial sources
-    if (heroPathSpan) heroPathSpan.textContent = heroSource.getAttribute('src') || 'videos/comparison/co3d_bench_185_19987_38634_zeronvs_vs_ours_rgb.mp4';
-    if (leftVideoPath) leftVideoPath.textContent = leftSource.getAttribute('src') || 'videos/comparison/depth2scene_indoor1.mp4';
-    if (rightVideoPath) rightVideoPath.textContent = rightSource.getAttribute('src') || 'videos/comparison/one2scene_indoor1.mp4';
-
-    // Try to autoplay left/right on load (muted + playsinline typically allows this)
-    window.addEventListener('load', () => {
-      // Attempt initial play; errors are fine (user can click)
-      leftVideo.play().catch(() => {});
-      rightVideo.play().catch(() => {});
-      heroVideo.play().catch(() => {});
-    });
-  </script>
 </body>
 </html>
