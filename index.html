@@ -143,12 +143,161 @@
   aspect-ratio: 1 / 1;  /* 保持1:1比例 */
   object-fit: cover;
     }
-    /* Responsive design */
+
+    /* 新增：比较部分的样式 */
+    #baseline-compare {
+      margin: 40px 0;
+    }
+    
+    /* 横向方法展示容器 */
+    .methods-comparison-container {
+      margin: 30px 0;
+      overflow-x: auto;
+      padding: 10px 0;
+    }
+    
+    .methods-grid {
+      display: flex;
+      gap: 20px;
+      min-width: fit-content;
+      justify-content: flex-start;
+      padding: 0 10px;
+    }
+    
+    /* 每个方法的视频容器 */
+    .method-video-item {
+      flex: 0 0 auto;
+      width: 200px;
+      text-align: center;
+    }
+    
+    .method-video-container {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: all 0.3s ease;
+      background: #000;
+    }
+    
+    .method-video-container:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+    
+    .method-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .method-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      color: white;
+      padding: 20px 8px 8px;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+    }
+    
+    .method-title {
+      margin: 10px 0 5px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .method-description {
+      font-size: 11px;
+      color: #666;
+      margin: 0;
+    }
+    
+    /* 场景选择样式 */
+    .scene-pills {
+      display: none;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 30px 0;
+      padding: 0 20px;
+    }
+    
+    .scene-pills.active {
+      display: flex;
+    }
+    
+    .pill {
+      cursor: pointer;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      background: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .pill:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+    
+    .pill.active {
+      border-color: #007bff;
+      box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+    }
+    
+    .pill img {
+      width: 80px;
+      height: 60px;
+      object-fit: cover;
+      display: block;
+    }
+    
+    /* 加载动画 */
+    .loading-spinner {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+    }
+    
+    .spinner {
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top: 3px solid #fff;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* 响应式设计 */
     @media (max-width: 1200px) {
       .gallery-grid {
         grid-template-columns: repeat(3, 1fr);
       }
+      .method-video-item {
+        width: 180px;
+      }
+      .method-video-container {
+        width: 180px;
+        height: 180px;
+      }
     }
+    
     @media (max-width: 768px) {
       .gallery-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -163,7 +312,29 @@
       .card-text {
         font-size: 11px;
       }
+      
+      .methods-grid {
+        gap: 15px;
+      }
+      .method-video-item {
+        width: 160px;
+      }
+      .method-video-container {
+        width: 160px;
+        height: 160px;
+      }
+      .method-title {
+        font-size: 13px;
+      }
+      .method-description {
+        font-size: 10px;
+      }
+      .pill img {
+        width: 60px;
+        height: 45px;
+      }
     }
+    
     @media (max-width: 480px) {
       .gallery-grid {
         grid-template-columns: 1fr;
@@ -171,7 +342,20 @@
       .gallery-video {
         height: 180px;
       }
+      
+      .method-video-item {
+        width: 140px;
+      }
+      .method-video-container {
+        width: 140px;
+        height: 140px;
+      }
+      .methods-grid {
+        gap: 12px;
+        padding: 0 5px;
+      }
     }
+    
     /* Buttons within placeholder */
     .btn-inline {
       display: inline-block;
@@ -183,6 +367,15 @@
       font-size: 12px;
       text-decoration: none;
       cursor: pointer;
+    }
+    
+    /* 区域标题样式 */
+    .section-subtitle {
+      text-align: center;
+      color: #666;
+      font-size: 16px;
+      margin: 20px 0 10px;
+      font-weight: 500;
     }
   </style>
 
@@ -498,6 +691,246 @@
     </div>
 
     <br /><br />
+
+  <!-- 新增：Comparison Section -->
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <h3>Comparison to other methods</h3>
+    <p class="text-justify" style="text-align: left;">
+      Compare the generated videos of our method One2Scene with other baseline methods across different scenarios.
+      Our method demonstrates superior geometric consistency and visual quality in explorable 3D scene generation.
+      Try selecting different scenes to see the comparison!
+    </p>
+
+    <div id="baseline-compare">
+      <!-- 横向方法视频展示 -->
+      <div class="methods-comparison-container">
+        <div class="methods-grid">
+          <!-- VMem -->
+          <div class="method-video-item">
+            <div class="method-video-container">
+              <div class="loading-spinner" id="loading-vmem">
+                <div class="spinner"></div>
+              </div>
+              <video class="method-video" id="video-vmem" loop playsinline autoplay muted>
+                <source src="videos/comparison/vmem_1_00028.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="method-label">VMem</div>
+            </div>
+            <div class="method-title">VMem</div>
+            <div class="method-description"></div>
+          </div>
+
+          <!-- VMem+ -->
+          <div class="method-video-item">
+            <div class="method-video-container">
+              <div class="loading-spinner" id="loading-vmem-plus">
+                <div class="spinner"></div>
+              </div>
+              <video class="method-video" id="video-vmem-plus" loop playsinline autoplay muted>
+                <source src="videos/comparison/vmem_6_00028.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="method-label">VMem+</div>
+            </div>
+            <div class="method-title">VMem+Anchor views</div>
+            <div class="method-description"></div>
+          </div>
+
+          <!-- SEVA -->
+          <div class="method-video-item">
+            <div class="method-video-container">
+              <div class="loading-spinner" id="loading-seva">
+                <div class="spinner"></div>
+              </div>
+              <video class="method-video" id="video-seva" loop playsinline autoplay muted>
+                <source src="videos/comparison/seva_1_00028.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="method-label">SEVA</div>
+            </div>
+            <div class="method-title">SEVA</div>
+            <div class="method-description"></div>
+          </div>
+
+          <!-- SEVA+ -->
+          <div class="method-video-item">
+            <div class="method-video-container">
+              <div class="loading-spinner" id="loading-seva-plus">
+                <div class="spinner"></div>
+              </div>
+              <video class="method-video" id="video-seva-plus" loop playsinline autoplay muted>
+                <source src="videos/comparison/seva_6_00028.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="method-label">SEVA+</div>
+            </div>
+            <div class="method-title">SEVA+Anchor views</div>
+            <div class="method-description"></div>
+          </div>
+
+          <!-- One2Scene (Ours) -->
+          <div class="method-video-item">
+            <div class="method-video-container">
+              <div class="loading-spinner" id="loading-ours">
+                <div class="spinner"></div>
+              </div>
+              <video class="method-video" id="video-ours" loop playsinline autoplay muted>
+                <source src="videos/comparison/one2scene_v0_00028.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="method-label">One2Scene</div>
+            </div>
+            <div class="method-title">One2Scene (Ours)</div>
+            <div class="method-description"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 场景选择区域 -->
+      <div class="section-subtitle">Select Scene</div>
+      
+      <!-- 场景选择缩略图 -->
+      <div class="pill-row scene-pills active" id="scene-pills" role="group">
+        <div class="pill scene-pill active" data-value="00028">
+          <img class="card-img" src="img/00028.png" alt="Scene 00028">
+        </div>
+        <div class="pill scene-pill" data-value="00119">
+          <img class="card-img" src="img/00119.png" alt="Scene 00119">
+        </div>
+        <div class="pill scene-pill" data-value="00303">
+          <img class="card-img" src="img/00303.png" alt="Scene 00303">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript for comparison functionality -->
+<script>
+  $(document).ready(function() {
+    let currentScene = '00028';
+    let isLoading = false;
+
+    // 定义方法和对应的视频文件名规则
+    const methodVideoMapping = {
+      'vmem': (scene) => `vmem_1_${scene}.mp4`,
+      'vmem-plus': (scene) => `vmem_6_${scene}.mp4`,
+      'seva': (scene) => `seva_1_${scene}.mp4`,
+      'seva-plus': (scene) => `seva_6_${scene}.mp4`,
+      'ours': (scene) => `one2scene_${scene}.mp4`
+    };
+
+    // 场景切换
+    $('.scene-pill').on('click', function(e) {
+      e.preventDefault();
+      if (isLoading) return;
+
+      const newScene = $(this).data('value');
+      if (newScene === currentScene) return;
+
+      // 更新UI
+      $(this).siblings().removeClass('active');
+      $(this).addClass('active');
+
+      currentScene = newScene;
+
+      // 更新所有方法的视频
+      updateAllVideos(currentScene);
+    });
+
+    // 更新所有视频函数
+    function updateAllVideos(scene) {
+      isLoading = true;
+      
+      // 显示所有加载动画
+      $('.loading-spinner').show();
+      
+      // 淡出当前视频
+      $('.method-video').animate({ opacity: 0.3 }, 200);
+      
+      // 更新视频源
+      const methods = ['vmem', 'vmem-plus', 'seva', 'seva-plus', 'ours'];
+      let loadedCount = 0;
+      const totalVideos = methods.length;
+      
+      methods.forEach(method => {
+        const video = document.getElementById(`video-${method}`);
+        if (video) {
+          const newSrc = `videos/comparison/${methodVideoMapping[method](scene)}`;
+          
+          // 创建新的source元素
+          const source = video.querySelector('source');
+          if (source) {
+            source.src = newSrc;
+          }
+          
+          // 监听视频加载完成
+          const onLoadedData = () => {
+            loadedCount++;
+            if (loadedCount === totalVideos) {
+              // 所有视频加载完成
+              $('.loading-spinner').hide();
+              $('.method-video').animate({ opacity: 1 }, 300);
+              isLoading = false;
+            }
+            video.removeEventListener('loadeddata', onLoadedData);
+          };
+          
+          // 监听视频加载错误
+          const onError = () => {
+            console.warn(`Video failed to load: ${newSrc}`);
+            loadedCount++;
+            if (loadedCount === totalVideos) {
+              $('.loading-spinner').hide();
+              $('.method-video').animate({ opacity: 1 }, 300);
+              isLoading = false;
+            }
+            video.removeEventListener('error', onError);
+          };
+          
+          video.addEventListener('loadeddata', onLoadedData);
+          video.addEventListener('error', onError);
+          
+          // 重新加载视频
+          video.load();
+        }
+      });
+      
+      // 备用超时机制，防止无限等待
+      setTimeout(() => {
+        if (isLoading) {
+          $('.loading-spinner').hide();
+          $('.method-video').animate({ opacity: 1 }, 300);
+          isLoading = false;
+          console.warn('Video loading timeout');
+        }
+      }, 5000);
+      
+      console.log(`Switching to scene: ${scene}`);
+    }
+
+    // 初始化时隐藏加载动画
+    $('.method-video').on('loadeddata', function() {
+      $(this).siblings('.loading-spinner').hide();
+    });
+
+    // 视频播放错误处理
+    $('.method-video').on('error', function() {
+      console.warn('Video failed to load:', this.querySelector('source').src);
+      $(this).siblings('.loading-spinner').hide();
+    });
+
+    // 视频悬停暂停/播放功能（可选）
+    $('.method-video').on('mouseenter', function() {
+      $(this).get(0).pause();
+    }).on('mouseleave', function() {
+      $(this).get(0).play();
+    });
+  });
+</script>
+
   </div>
 </body>
 </html>
