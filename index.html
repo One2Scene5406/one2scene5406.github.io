@@ -140,11 +140,13 @@
     .gallery-item {
       width: 100%;
     }
+
     .gallery-video {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-    }
+          width: 100%;
+          height: auto;
+          display: block;
+          border-radius: 6px;
+        }
 
     /* 新增：比较部分的样式 */
     #baseline-compare {
@@ -347,9 +349,9 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
       }
-      .gallery-video {
+      /* .gallery-video {
         height: 150px;
-      }
+      } */
       .card-title {
         font-size: 13px;
       }
@@ -379,7 +381,7 @@
       }
     }
     
-    @media (max-width: 480px) {
+    /* @media (max-width: 480px) {
       .gallery-grid {
         grid-template-columns: 1fr;
       }
@@ -398,7 +400,7 @@
         gap: 12px;
         padding: 0 5px;
       }
-    }
+    } */
     
     /* 区域标题样式 */
     .section-subtitle {
@@ -468,7 +470,7 @@
     }
 
     .reviewer-card.card-wide {
-      width: 760px;
+      width: 680px;
     }
 
     .img-skeleton {
@@ -965,6 +967,8 @@
 
     <br /><br />
 
+
+    
     <!-- Reviewer Section -->
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
@@ -1047,8 +1051,21 @@
       </div>
     </div>
 
-  </div>
 
+
+<br /><br />
+
+<!-- To Reviewer Lk3Z - 只有标题 -->
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <h3 class="reviewer-title">To Reviewer Lk3Z</h3>
+    <p class="reviewer-subtitle">
+      
+    </p>
+  </div>
+</div>
+
+<br /><br />
 
 <!-- Point Cloud Comparison Section (larger tiles, 2nd row aligned under first two) -->
 <div class="row">
@@ -1059,7 +1076,9 @@
       Our method produces more geometrically accurate and complete point clouds with better color fidelity.
       Rotate and zoom the 3D models to explore the reconstruction quality from different angles!
     </p>
-
+    <p class="text-center" style="font-weight: bold; font-size: 16px; color: #e67e22; margin-top: 15px;">
+      <i class="fa fa-exclamation-circle"></i> Point cloud files are large, please wait patiently for loading.
+    </p>
     <style>
       /* Scoped styles for this section */
       #pointcloud-compare .methods-grid {
@@ -1256,7 +1275,7 @@
               <div class="method-label">VMem</div>
             </div>
             <div class="method-title">VMem</div>
-            <div class="method-description">Point Cloud Reconstruction</div>
+            <div class="method-description"></div>
           </div>
 
           <!-- VMem+ -->
@@ -1280,7 +1299,7 @@
               <div class="method-label">VMem+</div>
             </div>
             <div class="method-title">VMem+Anchor views</div>
-            <div class="method-description">Point Cloud Reconstruction</div>
+            <div class="method-description"></div>
           </div>
 
           <!-- SEVA -->
@@ -1304,7 +1323,7 @@
               <div class="method-label">SEVA</div>
             </div>
             <div class="method-title">SEVA</div>
-            <div class="method-description">Point Cloud Reconstruction</div>
+            <div class="method-description"></div>
           </div>
 
           <!-- SEVA+ -->
@@ -1328,7 +1347,7 @@
               <div class="method-label">SEVA+</div>
             </div>
             <div class="method-title">SEVA+Anchor views</div>
-            <div class="method-description">Point Cloud Reconstruction</div>
+            <div class="method-description"></div>
           </div>
 
           <!-- One2Scene (Ours) -->
@@ -1352,7 +1371,7 @@
               <div class="method-label">One2Scene</div>
             </div>
             <div class="method-title">One2Scene (Ours)</div>
-            <div class="method-description">Point Cloud Reconstruction</div>
+            <div class="method-description"></div>
           </div>
         </div>
       </div>
@@ -1503,7 +1522,151 @@
 </script>
 
 
+<br /><br />
 
+<!-- Additional Video Results Section -->
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <h3>Additional Outdoor Generation Results</h3>
+    <p class="text-justify" style="text-align: left;">
+      More examples of explorable 3D scene generation for outdoor environments.
+      Our method demonstrates consistent geometric accuracy and visual quality for different type of outdoor scenes.
+      Each video showcases smooth camera navigation through the reconstructed 3D environment.
+    </p>
+  </div>
+</div>
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <div class="card">
+              <video class="gallery-video" controls playsinline muted>
+                <source src="rebuttal/00506_f1_outdoor_Aquatic_landscape_photorealistic_photorealistic_video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="card-body">
+                <h5 class="card-title">Aquatic Landscape</h5>
+                <p class="card-text">Photorealistic Style</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <div class="card">
+              <video class="gallery-video" controls playsinline muted>
+                <source src="rebuttal/00652_f2_outdoor_City_photorealistic_photorealistic_video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="card-body">
+                <h5 class="card-title">City</h5>
+                <p class="card-text">Photorealistic Style</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <div class="card">
+              <video class="gallery-video" controls playsinline muted>
+                <source src="rebuttal/00918_f3_outdoor_Verdant_landscape_photorealistic_photorealistic_video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="card-body">
+                <h5 class="card-title">Verdant Landscape</h5>
+                <p class="card-text">Photorealistic Style</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <div class="card">
+              <video class="gallery-video" controls playsinline muted>
+                <source src="rebuttal/01543_f5_outdoor_Aquatic_landscape_stylized_minecraft_game_video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="card-body">
+                <h5 class="card-title">Aquatic Landscape</h5>
+                <p class="card-text">Minecraft Game Style</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <div class="card">
+              <video class="gallery-video" controls playsinline muted>
+                <source src="rebuttal/01603_f5_outdoor_City_stylized_anime_video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="card-body">
+                <h5 class="card-title">City</h5>
+                <p class="card-text">Anime Style</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <div class="card">
+              <video class="gallery-video" controls playsinline muted>
+                <source src="rebuttal/01897_f6_outdoor_Terrestrial_landscape_stylized_anime_video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="card-body">
+                <h5 class="card-title">Terrestrial Landscape</h5>
+                <p class="card-text">Anime Style</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="gallery-item">
+            <div class="card">
+              <video class="gallery-video" controls playsinline muted>
+                <source src="rebuttal/01991_f6_outdoor_Verdant_landscape_stylized_minecraft_game_video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="card-body">
+                <h5 class="card-title">Verdant Landscape</h5>
+                <p class="card-text">Minecraft Game Style</p>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="gallery-item">
+            <div class="card">
+              <video class="gallery-video" controls playsinline muted>
+                <source src="rebuttal/01641_f5_outdoor_City_stylized_minecraft_game_video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div class="card-body">
+                <h5 class="card-title">City</h5>
+                <p class="card-text">Minecraft Game Style</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- To Reviewer Lk3Z - 只有标题 -->
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <h3 class="reviewer-title">To Reviewer Lk3Z</h3>
+    <p class="reviewer-subtitle">
+      
+    </p>
+  </div>
+</div>
+
+<br /><br />
+
+
+<!-- To Reviewer Lk3Z - 只有标题 -->
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <h3 class="reviewer-title">To Reviewer Lk3Z</h3>
+    <p class="reviewer-subtitle">
+      
+    </p>
+  </div>
+</div>
+
+<br /><br />
   <!-- JavaScript for reviewer section -->
   <script>
     document.querySelectorAll('#to-reviewer-3g7z .img-stage img').forEach(img => {
@@ -1522,6 +1685,7 @@
       }
     });
   </script>
+
 
   <!-- JavaScript for video comparison -->
   <script>
