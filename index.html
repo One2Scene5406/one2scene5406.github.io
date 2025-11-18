@@ -35,6 +35,8 @@
   <link rel="stylesheet" href="css/fontawesome.all.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" />
 
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
+
   <style>
     body {
       padding: 1%;
@@ -140,8 +142,8 @@
     }
     .gallery-video {
       width: 100%;
-  aspect-ratio: 1 / 1;  /* 保持1:1比例 */
-  object-fit: cover;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
     }
 
     /* 新增：比较部分的样式 */
@@ -152,29 +154,31 @@
     /* 横向方法展示容器 */
     .methods-comparison-container {
       margin: 30px 0;
-      overflow-x: auto;
       padding: 10px 0;
+      max-width: 1800px;
+      margin-left: auto;
+      margin-right: auto;
     }
-    
+
     .methods-grid {
       display: flex;
       gap: 20px;
-      min-width: fit-content;
-      justify-content: flex-start;
-      padding: 0 10px;
+      justify-content: center;
+      padding: 0 20px;
+      flex-wrap: nowrap;
     }
     
-    /* 每个方法的视频容器 */
+    /* 每个方法的视频/模型容器 */
     .method-video-item {
       flex: 0 0 auto;
-      width: 200px;
+      width: 270px;
       text-align: center;
     }
     
     .method-video-container {
       position: relative;
-      width: 200px;
-      height: 200px;
+      width: 270px;
+      height: 270px;
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
@@ -204,6 +208,7 @@
       font-size: 12px;
       font-weight: 600;
       text-align: center;
+      z-index: 2;
     }
     
     .method-title {
@@ -260,28 +265,67 @@
       display: block;
     }
     
-    /* 加载动画 */
+    /* 加载动画 - 优化版 */
     .loading-spinner {
       display: none;
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      z-index: 10;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 15px;
+      border-radius: 8px;
     }
     
     .spinner {
-      border: 3px solid rgba(255,255,255,0.3);
-      border-top: 3px solid #fff;
+      border: 4px solid rgba(255, 255, 255, 0.2);
+      border-top: 4px solid #fff;
       border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      animation: spin 1s linear infinite;
+      width: 40px;
+      height: 40px;
+      animation: spin 0.8s linear infinite;
     }
     
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
+    }
+
+    /* 加载进度条 */
+    .load-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      background: #007bff;
+      width: 0%;
+      transition: width 0.3s ease;
+      z-index: 11;
+    }
+
+    /* Model viewer 样式 */
+    model-viewer {
+      width: 100%;
+      height: 100%;
+      transition: opacity 0.3s ease;
+    }
+
+    .model-container {
+      position: relative;
+      background: #1a1a1a;
+    }
+
+    .model-container.loading::after {
+      content: 'Loading 3D Model...';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-size: 14px;
+      z-index: 10;
+      pointer-events: none;
     }
     
     /* 响应式设计 */
@@ -356,19 +400,6 @@
       }
     }
     
-    /* Buttons within placeholder */
-    .btn-inline {
-      display: inline-block;
-      margin-top: 8px;
-      padding: 6px 10px;
-      background: #007bff;
-      color: #fff;
-      border-radius: 4px;
-      font-size: 12px;
-      text-decoration: none;
-      cursor: pointer;
-    }
-    
     /* 区域标题样式 */
     .section-subtitle {
       text-align: center;
@@ -377,9 +408,147 @@
       margin: 20px 0 10px;
       font-weight: 500;
     }
+
+    /* Reviewer Section 样式 */
+    .reviewer-section {
+      margin: 56px auto 40px;
+      max-width: 1600px;
+      padding: 0 20px;
+    }
+    .reviewer-title {
+      text-align: center;
+      margin-bottom: 8px;
+      font-weight: 900;
+      font-size: 32px;
+      letter-spacing: 0.2px;
+    }
+    .reviewer-subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 22px;
+      font-size: 14px;
+    }
+
+    .reviewer-row {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: nowrap;
+      align-items: flex-start;
+    }
+
+    .reviewer-card {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #e3e3e3;
+      border-radius: 10px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      flex-shrink: 0;
+    }
+    .reviewer-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    }
+
+    .img-stage {
+      background: #f4f5f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      height: 380px;
+    }
+
+    .reviewer-card.card-square {
+      width: 380px;
+    }
+
+    .reviewer-card.card-wide {
+      width: 760px;
+    }
+
+    .img-skeleton {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, #eee 25%, #f6f6f6 37%, #eee 63%);
+      background-size: 400% 100%;
+      animation: shimmer 1.2s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      0% { background-position: 100% 0; }
+      100% { background-position: 0 0; }
+    }
+
+    .reviewer-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      z-index: 1;
+    }
+
+    .img-stage.loaded .img-skeleton { display: none; }
+
+    .reviewer-caption {
+      padding: 14px 12px;
+      font-size: 13px;
+      color: #333;
+      text-align: center;
+      background: #fafafa;
+      border-top: 1px solid #f0f0f0;
+      font-weight: 500;
+    }
+
+    .reviewer-row-title {
+      margin: 32px 0 16px;
+      font-weight: 700;
+      font-size: 18px;
+      color: #222;
+      text-align: left;
+    }
+
+    @media (max-width: 1920px) {
+      .img-stage { height: 340px; }
+      .reviewer-card.card-square { width: 340px; }
+      .reviewer-card.card-wide { width: 680px; }
+    }
+    @media (max-width: 1600px) {
+      .img-stage { height: 300px; }
+      .reviewer-card.card-square { width: 300px; }
+      .reviewer-card.card-wide { width: 600px; }
+    }
+    @media (max-width: 1400px) {
+      .img-stage { height: 280px; }
+      .reviewer-card.card-square { width: 280px; }
+      .reviewer-card.card-wide { width: 560px; }
+    }
+    @media (max-width: 1200px) {
+      .reviewer-row { flex-wrap: wrap; }
+      .img-stage { height: 320px; }
+      .reviewer-card.card-square { width: 320px; }
+      .reviewer-card.card-wide { width: 640px; }
+    }
+    @media (max-width: 992px) {
+      .reviewer-title { font-size: 30px; }
+      .img-stage { height: 280px; }
+      .reviewer-card.card-square { width: 100%; max-width: 380px; }
+      .reviewer-card.card-wide { width: 100%; max-width: 760px; }
+    }
+    @media (max-width: 768px) {
+      .reviewer-row { gap: 14px; }
+      .img-stage { height: 240px; }
+    }
+    @media (max-width: 480px) {
+      .reviewer-title { font-size: 28px; }
+      .img-stage { height: 200px; }
+    }
   </style>
 
-  <!-- Analytics (optional) -->
+  <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-8ZERS5BVPS"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -469,9 +638,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="gallery-grid">
-          <!-- Row 1 -->
-
-            <div class="gallery-item">
+          <div class="gallery-item">
             <div class="card">
               <video class="gallery-video" controls playsinline muted>
                 <source src="videos/gallery/00303_f1_indoor_Public_spaces_photorealistic_photorealistic_video.mp4" type="video/mp4" />
@@ -484,8 +651,6 @@
             </div>
           </div>
 
-
- 
           <div class="gallery-item">
             <div class="card">
               <video class="gallery-video" controls playsinline muted>
@@ -525,9 +690,7 @@
             </div>
           </div>
 
-          <!-- Row 2 -->
-
-                    <div class="gallery-item">
+          <div class="gallery-item">
             <div class="card">
               <video class="gallery-video" controls playsinline muted>
                 <source src="videos/gallery/00028_f0_indoor_Dining_spaces_photorealistic_photorealistic_video.mp4" type="video/mp4" />
@@ -539,8 +702,6 @@
               </div>
             </div>
           </div>
-
-
 
           <div class="gallery-item">
             <div class="card">
@@ -555,7 +716,6 @@
             </div>
           </div>
 
-
           <div class="gallery-item">
             <div class="card">
               <video class="gallery-video" controls playsinline muted>
@@ -569,7 +729,7 @@
             </div>
           </div>
 
-                   <div class="gallery-item">
+          <div class="gallery-item">
             <div class="card">
               <video class="gallery-video" controls playsinline muted>
                 <source src="videos/gallery/00243_f0_indoor_Passageways_photorealistic_photorealistic_video.mp4" type="video/mp4" />
@@ -582,7 +742,6 @@
             </div>
           </div>
 
-          <!-- Row 3 -->
           <div class="gallery-item">
             <div class="card">
               <video class="gallery-video" controls playsinline muted>
@@ -635,7 +794,6 @@
             </div>
           </div>
 
-          <!-- Row 4 -->
           <div class="gallery-item">
             <div class="card">
               <video class="gallery-video" controls playsinline muted>
@@ -687,252 +845,788 @@
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
 
     <br /><br />
 
-  <!-- 新增：Comparison Section -->
+    <!-- Video Comparison Section -->
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <h3>Comparison to other methods</h3>
+        <p class="text-justify" style="text-align: left;">
+          Compare the generated videos of our method One2Scene with other baseline methods across different scenarios.
+          Our method demonstrates superior geometric consistency and visual quality in explorable 3D scene generation.
+          Try selecting different scenes to see the comparison!
+        </p>
+
+        <div id="baseline-compare">
+          <div class="methods-comparison-container">
+            <div class="methods-grid">
+              <!-- VMem -->
+              <div class="method-video-item">
+                <div class="method-video-container">
+                  <div class="loading-spinner" id="loading-vmem">
+                    <div class="spinner"></div>
+                  </div>
+                  <video class="method-video" id="video-vmem" loop playsinline autoplay muted>
+                    <source src="videos/comparison/vmem_1_00028.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                  <div class="method-label">VMem</div>
+                </div>
+                <div class="method-title">VMem</div>
+                <div class="method-description"></div>
+              </div>
+
+              <!-- VMem+ -->
+              <div class="method-video-item">
+                <div class="method-video-container">
+                  <div class="loading-spinner" id="loading-vmem-plus">
+                    <div class="spinner"></div>
+                  </div>
+                  <video class="method-video" id="video-vmem-plus" loop playsinline autoplay muted>
+                    <source src="videos/comparison/vmem_6_00028.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                  <div class="method-label">VMem+</div>
+                </div>
+                <div class="method-title">VMem+Anchor views</div>
+                <div class="method-description"></div>
+              </div>
+
+              <!-- SEVA -->
+              <div class="method-video-item">
+                <div class="method-video-container">
+                  <div class="loading-spinner" id="loading-seva">
+                    <div class="spinner"></div>
+                  </div>
+                  <video class="method-video" id="video-seva" loop playsinline autoplay muted>
+                    <source src="videos/comparison/seva_1_00028.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                  <div class="method-label">SEVA</div>
+                </div>
+                <div class="method-title">SEVA</div>
+                <div class="method-description"></div>
+              </div>
+
+              <!-- SEVA+ -->
+              <div class="method-video-item">
+                <div class="method-video-container">
+                  <div class="loading-spinner" id="loading-seva-plus">
+                    <div class="spinner"></div>
+                  </div>
+                  <video class="method-video" id="video-seva-plus" loop playsinline autoplay muted>
+                    <source src="videos/comparison/seva_6_00028.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                  <div class="method-label">SEVA+</div>
+                </div>
+                <div class="method-title">SEVA+Anchor views</div>
+                <div class="method-description"></div>
+              </div>
+
+              <!-- One2Scene (Ours) -->
+              <div class="method-video-item">
+                <div class="method-video-container">
+                  <div class="loading-spinner" id="loading-ours">
+                    <div class="spinner"></div>
+                  </div>
+                  <video class="method-video" id="video-ours" loop playsinline autoplay muted>
+                    <source src="videos/comparison/one2scene_00028.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                  <div class="method-label">One2Scene</div>
+                </div>
+                <div class="method-title">One2Scene (Ours)</div>
+                <div class="method-description"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-subtitle">Select Scene</div>
+          
+          <div class="pill-row scene-pills active" id="scene-pills" role="group">
+            <div class="pill scene-pill active" data-value="00028">
+              <img class="card-img" src="img/00028.png" alt="Scene 00028">
+            </div>
+            <div class="pill scene-pill" data-value="00119">
+              <img class="card-img" src="img/00119.png" alt="Scene 00119">
+            </div>
+            <div class="pill scene-pill" data-value="00303">
+              <img class="card-img" src="img/00303.png" alt="Scene 00303">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br /><br />
+
+    <!-- Reviewer Section -->
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <section class="reviewer-section" id="to-reviewer-3g7z">
+          <h3 class="reviewer-title">To Reviewer 3G7Z</h3>
+          <p class="reviewer-subtitle">
+            We experimented with alternative panorama generators like DiT360, but they produced significant seams and artifacts on in-the-wild images. 
+            Our framework's modular design allows it to directly benefit from any panorama generator—using Hunyuan-Pano-DiT simply provides the highest quality input for demonstration.
+          </p>
+
+          <!-- Row 1 -->
+          <div class="reviewer-row-title"></div>
+          <div class="reviewer-row">
+            <div class="reviewer-card card-square">
+              <div class="img-stage"><div class="img-skeleton"></div>
+                <img class="reviewer-img" src="pano_img/0_face_0.png" alt="Row 1 - Face">
+              </div>
+              <div class="reviewer-caption">Input</div>
+            </div>
+            <div class="reviewer-card card-wide">
+              <div class="img-stage"><div class="img-skeleton"></div>
+                <img class="reviewer-img" src="pano_img/0_dit360.png" alt="Row 1 - DiT360">
+              </div>
+              <div class="reviewer-caption">DiT360</div>
+            </div>
+            <div class="reviewer-card card-wide">
+              <div class="img-stage"><div class="img-skeleton"></div>
+                <img class="reviewer-img" src="pano_img/0_hunyuan.png" alt="Row 1 - Hunyuan">
+              </div>
+              <div class="reviewer-caption">Hunyuan-Pano-DiT</div>
+            </div>
+          </div>
+
+          <!-- Row 2 -->
+          <div class="reviewer-row-title"></div>
+          <div class="reviewer-row">
+            <div class="reviewer-card card-square">
+              <div class="img-stage"><div class="img-skeleton"></div>
+                <img class="reviewer-img" src="pano_img/1_face_0.png" alt="Row 2 - Face">
+              </div>
+              <div class="reviewer-caption">Input</div>
+            </div>
+            <div class="reviewer-card card-wide">
+              <div class="img-stage"><div class="img-skeleton"></div>
+                <img class="reviewer-img" src="pano_img/1_dit360.png" alt="Row 2 - DiT360">
+              </div>
+              <div class="reviewer-caption">DiT360</div>
+            </div>
+            <div class="reviewer-card card-wide">
+              <div class="img-stage"><div class="img-skeleton"></div>
+                <img class="reviewer-img" src="pano_img/1_hunyuan.png" alt="Row 2 - Hunyuan">
+              </div>
+              <div class="reviewer-caption">Hunyuan-Pano-DiT</div>
+            </div>
+          </div>
+
+          <!-- Row 3 -->
+          <div class="reviewer-row-title"></div>
+          <div class="reviewer-row">
+            <div class="reviewer-card card-square">
+              <div class="img-stage"><div class="img-skeleton"></div>
+                <img class="reviewer-img" src="pano_img/2_face_0.png" alt="Row 3 - Face">
+              </div>
+              <div class="reviewer-caption">Input</div>
+            </div>
+            <div class="reviewer-card card-wide">
+              <div class="img-stage"><div class="img-skeleton"></div>
+                <img class="reviewer-img" src="pano_img/2_dit360.png" alt="Row 3 - DiT360">
+              </div>
+              <div class="reviewer-caption">DiT360</div>
+            </div>
+            <div class="reviewer-card card-wide">
+              <div class="img-stage"><div class="img-skeleton"></div>
+                <img class="reviewer-img" src="pano_img/2_hunyuan.png" alt="Row 3 - Hunyuan">
+              </div>
+              <div class="reviewer-caption">Hunyuan-Pano-DiT</div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+  </div>
+
+
+<!-- Point Cloud Comparison Section (larger tiles, 2nd row aligned under first two) -->
 <div class="row">
   <div class="col-md-10 col-md-offset-1">
-    <h3>Comparison to other methods</h3>
+    <h3>Point Cloud Reconstruction Comparison</h3>
     <p class="text-justify" style="text-align: left;">
-      Compare the generated videos of our method One2Scene with other baseline methods across different scenarios.
-      Our method demonstrates superior geometric consistency and visual quality in explorable 3D scene generation.
-      Try selecting different scenes to see the comparison!
+      Compare the 3D point cloud reconstructions of our method One2Scene with other baseline methods.
+      Our method produces more geometrically accurate and complete point clouds with better color fidelity.
+      Rotate and zoom the 3D models to explore the reconstruction quality from different angles!
     </p>
 
-    <div id="baseline-compare">
-      <!-- 横向方法视频展示 -->
+    <style>
+      /* Scoped styles for this section */
+      #pointcloud-compare .methods-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: auto;
+        gap: 32px;
+        justify-items: center;
+        align-items: start;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 10px;
+      }
+
+      /* Wider item wrapper to allow bigger model */
+      #pointcloud-compare .method-video-item { 
+        width: 440px;            /* controls text width below model */
+        text-align: center;
+      }
+
+      /* Desktop: place 4th and 5th directly under the first two in row 1 */
+      /* Row 1: items 1,2,3 occupy columns 1,2,3 (implicit) */
+      /* Row 2: items 4 -> column 1; item 5 -> column 2 */
+      #pointcloud-compare .method-video-item:nth-child(4) { grid-column: 1; }
+      #pointcloud-compare .method-video-item:nth-child(5) { grid-column: 2; }
+
+      /* Larger model container */
+      #pointcloud-compare .model-container {
+        position: relative;
+        width: 420px;
+        height: 420px;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+        transition: all 0.3s ease;
+        background: #111;
+        border: 1px solid #e8e8e8;
+      }
+      #pointcloud-compare .model-container:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 14px 36px rgba(0,0,0,0.22);
+      }
+      #pointcloud-compare model-viewer {
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        opacity: 1;
+        transition: opacity 0.2s ease;
+      }
+      #pointcloud-compare .loading-spinner {
+        position: absolute;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        pointer-events: none;
+      }
+      #pointcloud-compare .spinner {
+        border: 4px solid rgba(255, 255, 255, 0.25);
+        border-top: 4px solid #fff;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 0.8s linear infinite;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
+      #pointcloud-compare .load-progress {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 3px;
+        background: #007bff;
+        width: 0%;
+        transition: width 0.2s ease;
+        z-index: 11;
+      }
+      #pointcloud-compare .method-label {
+        position: absolute;
+        bottom: 0;
+        left: 0; right: 0;
+        background: linear-gradient(transparent, rgba(0,0,0,0.7));
+        color: #fff;
+        padding: 18px 8px 8px;
+        font-size: 12px;
+        font-weight: 600;
+        text-align: center;
+        z-index: 2;
+      }
+      #pointcloud-compare .method-title { margin: 10px 0 4px; font-size: 15px; font-weight: bold; }
+      #pointcloud-compare .method-description { font-size: 12px; color: #666; margin: 0; }
+
+      #pointcloud-compare .pill-row {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin: 18px 0 4px;
+        padding: 0 20px;
+      }
+      #pointcloud-compare .pill {
+        cursor: pointer;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: all 0.25s ease;
+        border: 2px solid transparent;
+        background: white;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      }
+      #pointcloud-compare .pill img {
+        width: 88px;
+        height: 66px;
+        object-fit: cover;
+        display: block;
+      }
+      #pointcloud-compare .pill:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+      }
+      #pointcloud-compare .pill.active {
+        border-color: #007bff;
+        box-shadow: 0 0 0 2px rgba(0,123,255,0.2);
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 1500px) {
+        #pointcloud-compare .methods-grid { gap: 28px; max-width: 1320px; }
+        #pointcloud-compare .method-video-item { width: 400px; }
+        #pointcloud-compare .model-container { width: 380px; height: 380px; }
+      }
+      @media (max-width: 1300px) {
+        #pointcloud-compare .methods-grid { gap: 24px; max-width: 1200px; }
+        #pointcloud-compare .method-video-item { width: 360px; }
+        #pointcloud-compare .model-container { width: 340px; height: 340px; }
+      }
+      @media (max-width: 1100px) {
+        #pointcloud-compare .methods-grid { gap: 22px; max-width: 1080px; }
+        #pointcloud-compare .method-video-item { width: 340px; }
+        #pointcloud-compare .model-container { width: 320px; height: 320px; }
+      }
+      @media (max-width: 992px) {
+        /* Switch to 2 columns on medium screens; items will wrap to 3 rows as needed */
+        #pointcloud-compare .methods-grid {
+          grid-template-columns: repeat(2, 1fr);
+          max-width: 760px;
+        }
+        #pointcloud-compare .method-video-item { width: 340px; }
+        #pointcloud-compare .model-container { width: 320px; height: 320px; }
+        /* remove explicit placement so auto-flow handles wrapping nicely */
+        #pointcloud-compare .method-video-item:nth-child(4),
+        #pointcloud-compare .method-video-item:nth-child(5) { grid-column: auto; }
+      }
+      @media (max-width: 768px) {
+        #pointcloud-compare .methods-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 18px;
+          max-width: 640px;
+        }
+        #pointcloud-compare .method-video-item { width: 100%; max-width: 320px; }
+        #pointcloud-compare .model-container { width: 100%; height: 260px; }
+      }
+      @media (max-width: 480px) {
+        #pointcloud-compare .methods-grid {
+          grid-template-columns: 1fr;
+          gap: 16px;
+          max-width: 420px;
+        }
+        #pointcloud-compare .method-video-item { width: 100%; max-width: 360px; }
+        #pointcloud-compare .model-container { height: 240px; }
+      }
+    </style>
+
+    <div id="pointcloud-compare">
       <div class="methods-comparison-container">
         <div class="methods-grid">
           <!-- VMem -->
           <div class="method-video-item">
-            <div class="method-video-container">
-              <div class="loading-spinner" id="loading-vmem">
-                <div class="spinner"></div>
-              </div>
-              <video class="method-video" id="video-vmem" loop playsinline autoplay muted>
-                <source src="videos/comparison/vmem_1_00028.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+            <div class="model-container" id="container-pc-vmem">
+              <div class="load-progress" id="progress-pc-vmem"></div>
+              <div class="loading-spinner" id="loading-pc-vmem"><div class="spinner"></div></div>
+              <model-viewer 
+                id="model-vmem"
+                src="pointclouds/vmem/scene_00028.glb"
+                camera-controls
+                camera-orbit="180deg 70deg 2.5m"
+                min-camera-orbit="auto auto 1m"
+                max-camera-orbit="auto auto 10m"
+                field-of-view="45deg"
+                exposure="1"
+                auto-rotate
+                auto-rotate-delay="1200"
+                rotation-per-second="12deg">
+              </model-viewer>
               <div class="method-label">VMem</div>
             </div>
             <div class="method-title">VMem</div>
-            <div class="method-description"></div>
+            <div class="method-description">Point Cloud Reconstruction</div>
           </div>
 
           <!-- VMem+ -->
           <div class="method-video-item">
-            <div class="method-video-container">
-              <div class="loading-spinner" id="loading-vmem-plus">
-                <div class="spinner"></div>
-              </div>
-              <video class="method-video" id="video-vmem-plus" loop playsinline autoplay muted>
-                <source src="videos/comparison/vmem_6_00028.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+            <div class="model-container" id="container-pc-vmem-plus">
+              <div class="load-progress" id="progress-pc-vmem-plus"></div>
+              <div class="loading-spinner" id="loading-pc-vmem-plus"><div class="spinner"></div></div>
+              <model-viewer 
+                id="model-vmem-plus"
+                src="pointclouds/vmem_plus/scene_00028.glb"
+                camera-controls
+                camera-orbit="180deg 70deg 2.5m"
+                min-camera-orbit="auto auto 1m"
+                max-camera-orbit="auto auto 10m"
+                field-of-view="45deg"
+                exposure="1"
+                auto-rotate
+                auto-rotate-delay="1200"
+                rotation-per-second="12deg">
+              </model-viewer>
               <div class="method-label">VMem+</div>
             </div>
             <div class="method-title">VMem+Anchor views</div>
-            <div class="method-description"></div>
+            <div class="method-description">Point Cloud Reconstruction</div>
           </div>
 
           <!-- SEVA -->
           <div class="method-video-item">
-            <div class="method-video-container">
-              <div class="loading-spinner" id="loading-seva">
-                <div class="spinner"></div>
-              </div>
-              <video class="method-video" id="video-seva" loop playsinline autoplay muted>
-                <source src="videos/comparison/seva_1_00028.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+            <div class="model-container" id="container-pc-seva">
+              <div class="load-progress" id="progress-pc-seva"></div>
+              <div class="loading-spinner" id="loading-pc-seva"><div class="spinner"></div></div>
+              <model-viewer 
+                id="model-seva"
+                src="pointclouds/seva/scene_00028.glb"
+                camera-controls
+                camera-orbit="180deg 70deg 2.5m"
+                min-camera-orbit="auto auto 1m"
+                max-camera-orbit="auto auto 10m"
+                field-of-view="45deg"
+                exposure="1"
+                auto-rotate
+                auto-rotate-delay="1200"
+                rotation-per-second="12deg">
+              </model-viewer>
               <div class="method-label">SEVA</div>
             </div>
             <div class="method-title">SEVA</div>
-            <div class="method-description"></div>
+            <div class="method-description">Point Cloud Reconstruction</div>
           </div>
 
           <!-- SEVA+ -->
           <div class="method-video-item">
-            <div class="method-video-container">
-              <div class="loading-spinner" id="loading-seva-plus">
-                <div class="spinner"></div>
-              </div>
-              <video class="method-video" id="video-seva-plus" loop playsinline autoplay muted>
-                <source src="videos/comparison/seva_6_00028.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+            <div class="model-container" id="container-pc-seva-plus">
+              <div class="load-progress" id="progress-pc-seva-plus"></div>
+              <div class="loading-spinner" id="loading-pc-seva-plus"><div class="spinner"></div></div>
+              <model-viewer 
+                id="model-seva-plus"
+                src="pointclouds/seva_plus/scene_00028.glb"
+                camera-controls
+                camera-orbit="180deg 70deg 2.5m"
+                min-camera-orbit="auto auto 1m"
+                max-camera-orbit="auto auto 10m"
+                field-of-view="45deg"
+                exposure="1"
+                auto-rotate
+                auto-rotate-delay="1200"
+                rotation-per-second="12deg">
+              </model-viewer>
               <div class="method-label">SEVA+</div>
             </div>
             <div class="method-title">SEVA+Anchor views</div>
-            <div class="method-description"></div>
+            <div class="method-description">Point Cloud Reconstruction</div>
           </div>
 
           <!-- One2Scene (Ours) -->
           <div class="method-video-item">
-            <div class="method-video-container">
-              <div class="loading-spinner" id="loading-ours">
-                <div class="spinner"></div>
-              </div>
-              <video class="method-video" id="video-ours" loop playsinline autoplay muted>
-                <source src="videos/comparison/one2scene_00028.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+            <div class="model-container" id="container-pc-ours">
+              <div class="load-progress" id="progress-pc-ours"></div>
+              <div class="loading-spinner" id="loading-pc-ours"><div class="spinner"></div></div>
+              <model-viewer 
+                id="model-ours"
+                src="pointclouds/ours/scene_00028.glb"
+                camera-controls
+                camera-orbit="180deg 70deg 2.5m"
+                min-camera-orbit="auto auto 1m"
+                max-camera-orbit="auto auto 10m"
+                field-of-view="45deg"
+                exposure="1"
+                auto-rotate
+                auto-rotate-delay="1200"
+                rotation-per-second="12deg">
+              </model-viewer>
               <div class="method-label">One2Scene</div>
             </div>
             <div class="method-title">One2Scene (Ours)</div>
-            <div class="method-description"></div>
+            <div class="method-description">Point Cloud Reconstruction</div>
           </div>
         </div>
       </div>
 
-      <!-- 场景选择区域 -->
       <div class="section-subtitle">Select Scene</div>
       
-      <!-- 场景选择缩略图 -->
-      <div class="pill-row scene-pills active" id="scene-pills" role="group">
-        <div class="pill scene-pill active" data-value="00028">
+      <div class="pill-row scene-pills active" id="pointcloud-scene-pills" role="group">
+        <div class="pill pointcloud-scene-pill active" data-value="00028">
           <img class="card-img" src="img/00028.png" alt="Scene 00028">
         </div>
-        <div class="pill scene-pill" data-value="00119">
+        <div class="pill pointcloud-scene-pill" data-value="00119">
           <img class="card-img" src="img/00119.png" alt="Scene 00119">
         </div>
-        <div class="pill scene-pill" data-value="00303">
+        <div class="pill pointcloud-scene-pill" data-value="00303">
           <img class="card-img" src="img/00303.png" alt="Scene 00303">
         </div>
+      </div>
+
+      <div class="text-center" style="margin-top: 10px; color: #888; font-size: 12px;">
+        <i class="fa fa-info-circle"></i> Click and drag to rotate • Scroll to zoom • Double-click to reset view
       </div>
     </div>
   </div>
 </div>
 
-<!-- JavaScript for comparison functionality -->
 <script>
-  $(document).ready(function() {
+  // Robust loader for model-viewer blocks in pointcloud-compare
+  (function() {
+    const viewers = [
+      { id: 'model-vmem',      container: 'container-pc-vmem',      progress: 'progress-pc-vmem',      spinner: 'loading-pc-vmem',      folder: 'pointclouds/vmem' },
+      { id: 'model-vmem-plus', container: 'container-pc-vmem-plus', progress: 'progress-pc-vmem-plus', spinner: 'loading-pc-vmem-plus', folder: 'pointclouds/vmem_plus' },
+      { id: 'model-seva',      container: 'container-pc-seva',      progress: 'progress-pc-seva',      spinner: 'loading-pc-seva',      folder: 'pointclouds/seva' },
+      { id: 'model-seva-plus', container: 'container-pc-seva-plus', progress: 'progress-pc-seva-plus', spinner: 'loading-pc-seva-plus', folder: 'pointclouds/seva_plus' },
+      { id: 'model-ours',      container: 'container-pc-ours',      progress: 'progress-pc-ours',      spinner: 'loading-pc-ours',      folder: 'pointclouds/ours' },
+    ];
+
     let currentScene = '00028';
-    let isLoading = false;
+    const TIMEOUT_MS = 8000;
 
-    // 定义方法和对应的视频文件名规则
-    const methodVideoMapping = {
-      'vmem': (scene) => `vmem_1_${scene}.mp4`,
-      'vmem-plus': (scene) => `vmem_6_${scene}.mp4`,
-      'seva': (scene) => `seva_1_${scene}.mp4`,
-      'seva-plus': (scene) => `seva_6_${scene}.mp4`,
-      'ours': (scene) => `one2scene_${scene}.mp4`
-    };
-
-    // 场景切换
-    $('.scene-pill').on('click', function(e) {
-      e.preventDefault();
-      if (isLoading) return;
-
-      const newScene = $(this).data('value');
-      if (newScene === currentScene) return;
-
-      // 更新UI
-      $(this).siblings().removeClass('active');
-      $(this).addClass('active');
-
-      currentScene = newScene;
-
-      // 更新所有方法的视频
-      updateAllVideos(currentScene);
-    });
-
-    // 更新所有视频函数
-    function updateAllVideos(scene) {
-      isLoading = true;
-      
-      // 显示所有加载动画
-      $('.loading-spinner').show();
-      
-      // 淡出当前视频
-      $('.method-video').animate({ opacity: 0.3 }, 200);
-      
-      // 更新视频源
-      const methods = ['vmem', 'vmem-plus', 'seva', 'seva-plus', 'ours'];
-      let loadedCount = 0;
-      const totalVideos = methods.length;
-      
-      methods.forEach(method => {
-        const video = document.getElementById(`video-${method}`);
-        if (video) {
-          const newSrc = `videos/comparison/${methodVideoMapping[method](scene)}`;
-          
-          // 创建新的source元素
-          const source = video.querySelector('source');
-          if (source) {
-            source.src = newSrc;
-          }
-          
-          // 监听视频加载完成
-          const onLoadedData = () => {
-            loadedCount++;
-            if (loadedCount === totalVideos) {
-              // 所有视频加载完成
-              $('.loading-spinner').hide();
-              $('.method-video').animate({ opacity: 1 }, 300);
-              isLoading = false;
-            }
-            video.removeEventListener('loadeddata', onLoadedData);
-          };
-          
-          // 监听视频加载错误
-          const onError = () => {
-            console.warn(`Video failed to load: ${newSrc}`);
-            loadedCount++;
-            if (loadedCount === totalVideos) {
-              $('.loading-spinner').hide();
-              $('.method-video').animate({ opacity: 1 }, 300);
-              isLoading = false;
-            }
-            video.removeEventListener('error', onError);
-          };
-          
-          video.addEventListener('loadeddata', onLoadedData);
-          video.addEventListener('error', onError);
-          
-          // 重新加载视频
-          video.load();
-        }
-      });
-      
-      // 备用超时机制，防止无限等待
-      setTimeout(() => {
-        if (isLoading) {
-          $('.loading-spinner').hide();
-          $('.method-video').animate({ opacity: 1 }, 300);
-          isLoading = false;
-          console.warn('Video loading timeout');
-        }
-      }, 5000);
-      
-      console.log(`Switching to scene: ${scene}`);
+    function setLoadingUI(v, on) {
+      const spinner = document.getElementById(v.spinner);
+      const progress = document.getElementById(v.progress);
+      const viewer = document.getElementById(v.id);
+      if (spinner) spinner.style.display = on ? 'flex' : 'none';
+      if (progress) progress.style.width = on ? '2%' : '0%';
+      if (viewer) viewer.style.opacity = on ? '0.85' : '1';
     }
 
-    // 初始化时隐藏加载动画
-    $('.method-video').on('loadeddata', function() {
-      $(this).siblings('.loading-spinner').hide();
-    });
+    function attachOnce(el, type, handler) {
+      const onceHandler = function(e) {
+        el.removeEventListener(type, onceHandler);
+        handler(e);
+      };
+      el.addEventListener(type, onceHandler);
+    }
 
-    // 视频播放错误处理
-    $('.method-video').on('error', function() {
-      console.warn('Video failed to load:', this.querySelector('source').src);
-      $(this).siblings('.loading-spinner').hide();
-    });
+    function bindViewerEvents(v) {
+      const mv = document.getElementById(v.id);
+      const progressBar = document.getElementById(v.progress);
+      const spinner = document.getElementById(v.spinner);
 
-    // 视频悬停暂停/播放功能（可选）
-    $('.method-video').on('mouseenter', function() {
-      $(this).get(0).pause();
-    }).on('mouseleave', function() {
-      $(this).get(0).play();
+      if (!mv) return;
+
+      // Clean previous listeners if any
+      mv.__pc_listeners && mv.__pc_listeners.forEach(({type, fn}) => mv.removeEventListener(type, fn));
+      mv.__pc_listeners = [];
+
+      const onProgress = (e) => {
+        const { totalProgress } = e.detail || {};
+        if (progressBar && typeof totalProgress === 'number') {
+          const pct = Math.max(2, Math.min(100, Math.round(totalProgress * 100)));
+          progressBar.style.width = pct + '%';
+        }
+      };
+      const onLoad = () => {
+        if (spinner) spinner.style.display = 'none';
+        if (progressBar) progressBar.style.width = '100%';
+        // ensure camera feels consistent
+        mv.cameraOrbit = "180deg 70deg 2.5m";
+        // slight delay to hide progress
+        setTimeout(() => { if (progressBar) progressBar.style.width = '0%'; }, 500);
+        mv.style.opacity = '1';
+      };
+      const onError = () => {
+        if (spinner) spinner.style.display = 'none';
+        if (progressBar) progressBar.style.width = '0%';
+        mv.style.opacity = '1';
+        console.warn('Failed to load model:', mv.src);
+      };
+
+      mv.addEventListener('progress', onProgress);
+      mv.addEventListener('load', onLoad);
+      mv.addEventListener('error', onError);
+      mv.__pc_listeners.push({type: 'progress', fn: onProgress}, {type: 'load', fn: onLoad}, {type: 'error', fn: onError});
+    }
+
+    function updateViewerSrc(v, scene) {
+      const mv = document.getElementById(v.id);
+      if (!mv) return;
+
+      setLoadingUI(v, true);
+      bindViewerEvents(v);
+
+      // Force a reload by resetting src
+      const newSrc = `${v.folder}/scene_${scene}.glb`;
+      mv.setAttribute('src', newSrc);
+
+      // Timeout insurance
+      const timeout = setTimeout(() => {
+        // If still showing spinner after TIMEOUT_MS, stop it
+        const spinner = document.getElementById(v.spinner);
+        const progress = document.getElementById(v.progress);
+        if (spinner && spinner.style.display !== 'none') spinner.style.display = 'none';
+        if (progress) progress.style.width = '0%';
+        mv.style.opacity = '1';
+        console.warn('Model load timeout:', newSrc);
+      }, TIMEOUT_MS);
+
+      // When either load or error fires, clear timeout
+      attachOnce(mv, 'load', () => clearTimeout(timeout));
+      attachOnce(mv, 'error', () => clearTimeout(timeout));
+    }
+
+    function switchScene(scene) {
+      currentScene = scene;
+      viewers.forEach(v => updateViewerSrc(v, scene));
+    }
+
+    // Initial bind and gentle kick for initial scene
+    viewers.forEach(v => {
+      bindViewerEvents(v);
+      setLoadingUI(v, true);
     });
-  });
+    // wait a tick to allow model-viewer to attach
+    setTimeout(() => switchScene(currentScene), 50);
+
+    // Scene pills click
+    document.querySelectorAll('#pointcloud-scene-pills .pointcloud-scene-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        const val = pill.getAttribute('data-value');
+        if (!val || val === currentScene) return;
+        document.querySelectorAll('#pointcloud-scene-pills .pointcloud-scene-pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        switchScene(val);
+      });
+    });
+  })();
 </script>
 
-  </div>
+
+
+  <!-- JavaScript for reviewer section -->
+  <script>
+    document.querySelectorAll('#to-reviewer-3g7z .img-stage img').forEach(img => {
+      const stage = img.parentElement;
+      if (img.complete) {
+        stage.classList.add('loaded');
+      } else {
+        img.addEventListener('load', () => stage.classList.add('loaded'));
+        img.addEventListener('error', () => {
+          const note = document.createElement('div');
+          note.textContent = 'Image not found';
+          note.style.cssText = 'position:absolute;bottom:8px;left:8px;color:#999;font-size:11px;z-index:2';
+          stage.appendChild(note);
+          stage.classList.add('loaded');
+        });
+      }
+    });
+  </script>
+
+  <!-- JavaScript for video comparison -->
+  <script>
+    $(document).ready(function() {
+      let currentScene = '00028';
+      let isLoading = false;
+
+      const methodVideoMapping = {
+        'vmem': (scene) => `vmem_1_${scene}.mp4`,
+        'vmem-plus': (scene) => `vmem_6_${scene}.mp4`,
+        'seva': (scene) => `seva_1_${scene}.mp4`,
+        'seva-plus': (scene) => `seva_6_${scene}.mp4`,
+        'ours': (scene) => `one2scene_${scene}.mp4`
+      };
+
+      $('.scene-pill').on('click', function(e) {
+        e.preventDefault();
+        if (isLoading) {
+          console.log('⏳ Still loading videos, please wait...');
+          return;
+        }
+
+        const newScene = $(this).data('value');
+        if (newScene === currentScene) return;
+
+        $(this).siblings().removeClass('active');
+        $(this).addClass('active');
+        currentScene = newScene;
+        updateAllVideos(currentScene);
+      });
+
+      function updateAllVideos(scene) {
+        isLoading = true;
+        $('#baseline-compare .loading-spinner').show();
+        $('.method-video').animate({ opacity: 0.3 }, 200);
+        
+        const methods = ['vmem', 'vmem-plus', 'seva', 'seva-plus', 'ours'];
+        let loadedCount = 0;
+        const totalVideos = methods.length;
+        
+        methods.forEach(method => {
+          const video = document.getElementById(`video-${method}`);
+          if (video) {
+            const newSrc = `videos/comparison/${methodVideoMapping[method](scene)}`;
+            const source = video.querySelector('source');
+            if (source) source.src = newSrc;
+            
+            const onLoadedData = () => {
+              loadedCount++;
+              if (loadedCount === totalVideos) {
+                $('#baseline-compare .loading-spinner').hide();
+                $('.method-video').animate({ opacity: 1 }, 300);
+                isLoading = false;
+                console.log(`✅ All videos loaded for scene: ${scene}`);
+              }
+              video.removeEventListener('loadeddata', onLoadedData);
+            };
+            
+            const onError = () => {
+              console.warn(`Video failed to load: ${newSrc}`);
+              loadedCount++;
+              if (loadedCount === totalVideos) {
+                $('#baseline-compare .loading-spinner').hide();
+                $('.method-video').animate({ opacity: 1 }, 300);
+                isLoading = false;
+              }
+              video.removeEventListener('error', onError);
+            };
+            
+            video.addEventListener('loadeddata', onLoadedData);
+            video.addEventListener('error', onError);
+            video.load();
+          }
+        });
+        
+        setTimeout(() => {
+          if (isLoading) {
+            $('#baseline-compare .loading-spinner').hide();
+            $('.method-video').animate({ opacity: 1 }, 300);
+            isLoading = false;
+            console.warn('Video loading timeout');
+          }
+        }, 5000);
+        
+        console.log(`🔄 Switching to scene: ${scene}`);
+      }
+
+      $('.method-video').on('loadeddata', function() {
+        $(this).siblings('.loading-spinner').hide();
+      });
+
+      $('.method-video').on('error', function() {
+        console.warn('Video failed to load:', this.querySelector('source').src);
+        $(this).siblings('.loading-spinner').hide();
+      });
+
+      $('.method-video').on('mouseenter', function() {
+        $(this).get(0).pause();
+      }).on('mouseleave', function() {
+        $(this).get(0).play();
+      });
+    });
+  </script>
+
+
+
 </body>
 </html>
