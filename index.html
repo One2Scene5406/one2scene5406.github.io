@@ -1061,11 +1061,9 @@
     <h3 class="reviewer-title">To Reviewer Lk3Z</h3>
     <p class="reviewer-subtitle">
       
-    </p>
   </div>
 </div>
 
-<br /><br />
 
 <!-- Point Cloud Comparison Section (larger tiles, 2nd row aligned under first two) -->
 <div class="row">
@@ -1643,29 +1641,231 @@
         </div>
       </div>
     </div>
-    <!-- To Reviewer Lk3Z - 只有标题 -->
+    <!-- To Reviewer U23k - 只有标题
 <div class="row">
   <div class="col-md-10 col-md-offset-1">
-    <h3 class="reviewer-title">To Reviewer Lk3Z</h3>
+    <h3 class="reviewer-title">To Reviewer U23k</h3>
     <p class="reviewer-subtitle">
       
-    </p>
-  </div>
-</div>
+    </p> -->
+   <!-- To Reviewer U23k - 第二个比较部分 -->
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <h3 class="reviewer-title">To Reviewer U23k</h3>
+      
+      <h3 class="text-center">Comparison to other methods (Zoom-in View)</h3>
+      <p class="text-center">
+        Detailed zoom-in comparison showing geometric consistency and visual quality.
+      </p>
 
+
+      <div id="baseline-compare-zoom">
+        <div class="methods-comparison-container">
+          <div class="methods-grid">
+            <!-- VMem -->
+            <div class="method-video-item">
+              <div class="method-video-container">
+                <div class="loading-spinner" id="loading-vmem-zoom">
+                  <div class="spinner"></div>
+                </div>
+                <video class="method-video" id="video-vmem-zoom" loop playsinline autoplay muted>
+                  <source src="zoom_in/vmem_1_00303.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                <div class="method-label">VMem</div>
+              </div>
+              <div class="method-title">VMem</div>
+              <div class="method-description"></div>
+            </div>
+
+            <!-- VMem+ -->
+            <div class="method-video-item">
+              <div class="method-video-container">
+                <div class="loading-spinner" id="loading-vmem-plus-zoom">
+                  <div class="spinner"></div>
+                </div>
+                <video class="method-video" id="video-vmem-plus-zoom" loop playsinline autoplay muted>
+                  <source src="zoom_in/vmem_6_00303.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                <div class="method-label">VMem+</div>
+              </div>
+              <div class="method-title">VMem+Anchor views</div>
+              <div class="method-description"></div>
+            </div>
+
+            <!-- SEVA -->
+            <div class="method-video-item">
+              <div class="method-video-container">
+                <div class="loading-spinner" id="loading-seva-zoom">
+                  <div class="spinner"></div>
+                </div>
+                <video class="method-video" id="video-seva-zoom" loop playsinline autoplay muted>
+                  <source src="zoom_in/seva_1_00303.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                <div class="method-label">SEVA</div>
+              </div>
+              <div class="method-title">SEVA</div>
+              <div class="method-description"></div>
+            </div>
+
+            <!-- SEVA+ -->
+            <div class="method-video-item">
+              <div class="method-video-container">
+                <div class="loading-spinner" id="loading-seva-plus-zoom">
+                  <div class="spinner"></div>
+                </div>
+                <video class="method-video" id="video-seva-plus-zoom" loop playsinline autoplay muted>
+                  <source src="zoom_in/seva_6_00303.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                <div class="method-label">SEVA+</div>
+              </div>
+              <div class="method-title">SEVA+Anchor views</div>
+              <div class="method-description"></div>
+            </div>
+
+            <!-- One2Scene (Ours) -->
+            <div class="method-video-item">
+              <div class="method-video-container">
+                <div class="loading-spinner" id="loading-ours-zoom">
+                  <div class="spinner"></div>
+                </div>
+                <video class="method-video" id="video-ours-zoom" loop playsinline autoplay muted>
+                  <source src="zoom_in/one2scene_00303.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                <div class="method-label">One2Scene</div>
+              </div>
+              <div class="method-title">One2Scene (Ours)</div>
+              <div class="method-description"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-subtitle">Select Scene</div>
+        
+        <div class="pill-row scene-pills active" id="scene-pills-zoom" role="group">
+          <div class="pill scene-pill active" data-value="00303">
+            <img class="card-img" src="zoom_in/00303.png" alt="Scene 00303">
+          </div>
+          <div class="pill scene-pill" data-value="00441">
+            <img class="card-img" src="zoom_in/00441.png" alt="Scene 00441">
+          </div>
+          <div class="pill scene-pill" data-value="00488">
+            <img class="card-img" src="zoom_in/00488.png" alt="Scene 00488">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 <br /><br />
 
 
-<!-- To Reviewer Lk3Z - 只有标题 -->
+<!-- To Reviewer 7LcG - 只有标题 -->
 <div class="row">
   <div class="col-md-10 col-md-offset-1">
-    <h3 class="reviewer-title">To Reviewer Lk3Z</h3>
+    <h3 class="reviewer-title">To Reviewer 7LcG</h3>
     <p class="reviewer-subtitle">
       
+    </p>
+<!-- Additional Video Results Section -->
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <h3 class="text-center">More Scene Exploration: Handling Details, Clutter & Real-World Images</h3>
+    <p class="text-justify" style="text-align: left;">
+      We demonstrate One2Scene's capability to generate geometrically consistent scenes across diverse styles and varying image quality. While our method shows significant advantages over state-of-the-art approaches, there remains room for further improvement in certain challenging scenarios.
+
     </p>
   </div>
 </div>
 
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <div class="gallery-grid" style="grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 900px; margin: 0 auto;">
+      
+      <div class="gallery-item">
+        <div class="card">
+          <video class="gallery-video" controls playsinline muted style="max-height: 380px;">
+            <source src="reviewer4/studio_fast.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <div class="card-body">
+            <h5 class="card-title"></h5>
+            <p class="card-text"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="card">
+          <video class="gallery-video" controls playsinline muted style="max-height: 380px;">
+            <source src="reviewer4/auto_service_fast.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <div class="card-body">
+            <h5 class="card-title"></h5>
+            <p class="card-text"> </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="card">
+          <video class="gallery-video" controls playsinline muted style="max-height: 380px;">
+            <source src="reviewer4/christmas_fast.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <div class="card-body">
+            <h5 class="card-title"></h5>
+            <p class="card-text"> </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="card">
+          <video class="gallery-video" controls playsinline muted style="max-height: 380px;">
+            <source src="reviewer4/0013.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <div class="card-body">
+            <h5 class="card-title"> </h5>
+            <p class="card-text"> </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="card">
+          <video class="gallery-video" controls playsinline muted style="max-height: 380px;">
+            <source src="reviewer4/0020_video.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <div class="card-body">
+            <h5 class="card-title"> </h5>
+            <p class="card-text">  </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item">
+        <div class="card">
+          <video class="gallery-video" controls playsinline muted style="max-height: 380px;">
+            <source src="reviewer4/0030_video.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <div class="card-body">
+            <h5 class="card-title"></h5>
+            <p class="card-text">  </p>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
 <br /><br />
   <!-- JavaScript for reviewer section -->
   <script>
@@ -1772,6 +1972,91 @@
         
         console.log(`🔄 Switching to scene: ${scene}`);
       }
+
+
+   // 第二个比较部分（Zoom）的独立控制
+      let currentSceneZoom = '00303';
+      let isLoadingZoom = false;
+
+      const methodVideoMappingZoom = {
+        'vmem': (scene) => `vmem_1_${scene}.mp4`,
+        'vmem-plus': (scene) => `vmem_6_${scene}.mp4`,
+        'seva': (scene) => `seva_1_${scene}.mp4`,
+        'seva-plus': (scene) => `seva_6_${scene}.mp4`,
+        'ours': (scene) => `one2scene_${scene}.mp4`
+      };
+
+      $('#baseline-compare-zoom .scene-pill').on('click', function(e) {
+        e.preventDefault();
+        if (isLoadingZoom) {
+          console.log('⏳ Still loading zoom videos, please wait...');
+          return;
+        }
+
+        const newScene = $(this).data('value');
+        if (newScene === currentSceneZoom) return;
+
+        $(this).siblings().removeClass('active');
+        $(this).addClass('active');
+        currentSceneZoom = newScene;
+        updateZoomVideos(currentSceneZoom);
+      });
+
+      function updateZoomVideos(scene) {
+        isLoadingZoom = true;
+        $('#baseline-compare-zoom .loading-spinner').show();
+        $('#baseline-compare-zoom .method-video').animate({ opacity: 0.3 }, 200);
+        
+        const methods = ['vmem-zoom', 'vmem-plus-zoom', 'seva-zoom', 'seva-plus-zoom', 'ours-zoom'];
+        let loadedCount = 0;
+        const totalVideos = methods.length;
+        
+        methods.forEach(method => {
+          const video = document.getElementById(`video-${method}`);
+          if (video) {
+            const methodName = method.replace('-zoom', '');
+            const newSrc = `zoom_in/${methodVideoMappingZoom[methodName](scene)}`;
+            const source = video.querySelector('source');
+            if (source) source.src = newSrc;
+            
+            const onLoadedData = () => {
+              loadedCount++;
+              if (loadedCount === totalVideos) {
+                $('#baseline-compare-zoom .loading-spinner').hide();
+                $('#baseline-compare-zoom .method-video').animate({ opacity: 1 }, 300);
+                isLoadingZoom = false;
+                console.log(`✅ All zoom videos loaded for scene: ${scene}`);
+              }
+              video.removeEventListener('loadeddata', onLoadedData);
+            };
+            
+            const onError = () => {
+              console.warn(`Zoom video failed to load: ${newSrc}`);
+              loadedCount++;
+              if (loadedCount === totalVideos) {
+                $('#baseline-compare-zoom .loading-spinner').hide();
+                $('#baseline-compare-zoom .method-video').animate({ opacity: 1 }, 300);
+                isLoadingZoom = false;
+              }
+              video.removeEventListener('error', onError);
+            };
+            
+            video.addEventListener('loadeddata', onLoadedData);
+            video.addEventListener('error', onError);
+            video.load();
+          }
+        });
+        
+        setTimeout(() => {
+          if (isLoadingZoom) {
+            $('#baseline-compare-zoom .loading-spinner').hide();
+            $('#baseline-compare-zoom .method-video').animate({ opacity: 1 }, 300);
+            isLoadingZoom = false;
+            console.warn('Zoom video loading timeout');
+          }
+        }, 5000);
+        
+        console.log(`🔄 Switching zoom to scene: ${scene}`);  }
 
       $('.method-video').on('loadeddata', function() {
         $(this).siblings('.loading-spinner').hide();
