@@ -577,17 +577,74 @@
       </h2>
     </div>
 
-    <div class="row text-center">
-      <div class="col-md-3"></div>
-      <div class="col-md-6 text-center">
-        <ul class="list-inline">
-          <li>Anonymous Authors</li>
-        </ul>
-      </div>
-      <div class="col-md-3"></div>
-      <div class="col-md-12 text-center">Anonymous Institution</div>
-      <div class="col-md-12 text-center">Under Review</div>
+<div class="row text-center">
+  <div class="col-md-3"></div>
+  <div class="col-md-6 text-center">
+    <!-- 1. 作者列表 -->
+    <ul class="list-inline" style="font-size: 1.1em; font-weight: bold; margin-bottom: 5px;">
+      <li>Pengfei Wang<sup>*</sup>,</li>
+      <li>Liyi Chen<sup>*</sup>,</li>
+      <li>Zhiyuan Ma,</li>
+      <li>Yanjun Guo,</li>
+      <li>Guowen Zhang,</li>
+      <li>Lei Zhang<sup>†</sup></li>
+    </ul>
+  </div>
+  <div class="col-md-3"></div>
+
+  <!-- 2. 单位信息 -->
+  <div class="col-md-12 text-center">
+    The Hong Kong Polytechnic University
+  </div>
+
+  <!-- 3. 邮箱 -->
+  <div class="col-md-12 text-center" style="margin-bottom: 10px;">
+    <a href="mailto:pengfei.wang@connect.polyu.hk" style="font-family: monospace; color: inherit; text-decoration: none;">pengfei.wang@connect.polyu.hk</a>
+  </div>
+
+  <!-- 4. 会议录用信息 (新增部分) -->
+  <div class="col-md-12 text-center" style="margin-top: 5px; margin-bottom: 15px;">
+    <!-- 您可以根据喜好修改颜色，例如红色 #b30000 或保持黑色 -->
+    <span style="font-size: 1.5em; font-weight: bold;">ICLR 2026</span>
+  </div>
+
+  <!-- 5. 脚注 (Equal contribution & Corresponding) -->
+  <div class="col-md-12 text-center" style="font-size: 0.9em; color: #666; margin-bottom: 20px;">
+    <span style="margin-right: 15px;"><sup>*</sup>Equal contribution.</span>
+    <span><sup>†</sup>Corresponding author.</span>
+  </div>
+
+  <!-- 6. 论文链接按钮 -->
+  <div class="col-md-12 text-center">
+    <div class="btn-group" role="group" aria-label="Publication Links">
+      
+      <!-- Paper Link -->
+      <a href="https://arxiv.org/pdf/2410.24207" class="btn btn-dark rounded-pill" style="margin: 0 5px;">
+        <span class="icon">
+            <i class="fas fa-file-pdf"></i>
+        </span>
+        <span>Paper</span>
+      </a>
+
+      <!-- arXiv Link -->
+      <a href="https://arxiv.org/abs/2410.24207" class="btn btn-dark rounded-pill" style="margin: 0 5px;">
+        <span class="icon">
+            <i class="ai ai-arxiv"></i>
+        </span>
+        <span>arXiv</span>
+      </a>
+
+      <!-- Code Link -->
+      <a href="https://github.com/cvg/NoPoSplat" class="btn btn-dark rounded-pill" style="margin: 0 5px;">
+        <span class="icon">
+            <i class="fab fa-github"></i>
+        </span>
+        <span>Code</span>
+      </a>
+
     </div>
+  </div>
+</div>
 
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
@@ -969,100 +1026,7 @@
 
 
     
-    <!-- Reviewer Section -->
-    <div class="row">
-      <div class="col-md-10 col-md-offset-1">
-        <section class="reviewer-section" id="to-reviewer-3g7z">
-          <h3 class="reviewer-title">To Reviewer 3G7Z</h3>
-          <p class="reviewer-subtitle">
-            We experimented with alternative panorama generators like DiT360, but they produced significant seams and artifacts on in-the-wild images. 
-            Our framework's modular design allows it to directly benefit from any panorama generator—using Hunyuan-Pano-DiT simply provides the highest quality input for demonstration.
-          </p>
-
-          <!-- Row 1 -->
-          <div class="reviewer-row-title"></div>
-          <div class="reviewer-row">
-            <div class="reviewer-card card-square">
-              <div class="img-stage"><div class="img-skeleton"></div>
-                <img class="reviewer-img" src="pano_img/0_face_0.png" alt="Row 1 - Face">
-              </div>
-              <div class="reviewer-caption">Input</div>
-            </div>
-            <div class="reviewer-card card-wide">
-              <div class="img-stage"><div class="img-skeleton"></div>
-                <img class="reviewer-img" src="pano_img/0_dit360.png" alt="Row 1 - DiT360">
-              </div>
-              <div class="reviewer-caption">DiT360</div>
-            </div>
-            <div class="reviewer-card card-wide">
-              <div class="img-stage"><div class="img-skeleton"></div>
-                <img class="reviewer-img" src="pano_img/0_hunyuan.png" alt="Row 1 - Hunyuan">
-              </div>
-              <div class="reviewer-caption">Hunyuan-Pano-DiT</div>
-            </div>
-          </div>
-
-          <!-- Row 2 -->
-          <div class="reviewer-row-title"></div>
-          <div class="reviewer-row">
-            <div class="reviewer-card card-square">
-              <div class="img-stage"><div class="img-skeleton"></div>
-                <img class="reviewer-img" src="pano_img/1_face_0.png" alt="Row 2 - Face">
-              </div>
-              <div class="reviewer-caption">Input</div>
-            </div>
-            <div class="reviewer-card card-wide">
-              <div class="img-stage"><div class="img-skeleton"></div>
-                <img class="reviewer-img" src="pano_img/1_dit360.png" alt="Row 2 - DiT360">
-              </div>
-              <div class="reviewer-caption">DiT360</div>
-            </div>
-            <div class="reviewer-card card-wide">
-              <div class="img-stage"><div class="img-skeleton"></div>
-                <img class="reviewer-img" src="pano_img/1_hunyuan.png" alt="Row 2 - Hunyuan">
-              </div>
-              <div class="reviewer-caption">Hunyuan-Pano-DiT</div>
-            </div>
-          </div>
-
-          <!-- Row 3 -->
-          <div class="reviewer-row-title"></div>
-          <div class="reviewer-row">
-            <div class="reviewer-card card-square">
-              <div class="img-stage"><div class="img-skeleton"></div>
-                <img class="reviewer-img" src="pano_img/2_face_0.png" alt="Row 3 - Face">
-              </div>
-              <div class="reviewer-caption">Input</div>
-            </div>
-            <div class="reviewer-card card-wide">
-              <div class="img-stage"><div class="img-skeleton"></div>
-                <img class="reviewer-img" src="pano_img/2_dit360.png" alt="Row 3 - DiT360">
-              </div>
-              <div class="reviewer-caption">DiT360</div>
-            </div>
-            <div class="reviewer-card card-wide">
-              <div class="img-stage"><div class="img-skeleton"></div>
-                <img class="reviewer-img" src="pano_img/2_hunyuan.png" alt="Row 3 - Hunyuan">
-              </div>
-              <div class="reviewer-caption">Hunyuan-Pano-DiT</div>
-            </div>
-          </div>
-        </section>
-      </div>
-    </div>
-
-
-
-<br /><br />
-
-<!-- To Reviewer Lk3Z - 只有标题 -->
-<div class="row">
-  <div class="col-md-10 col-md-offset-1">
-    <h3 class="reviewer-title">To Reviewer Lk3Z</h3>
-    <p class="reviewer-subtitle">
-      
-  </div>
-</div>
+  
 
 
 <!-- Point Cloud Comparison Section (larger tiles, 2nd row aligned under first two) -->
@@ -1641,441 +1605,8 @@
         </div>
       </div>
     </div>
-    <!-- To Reviewer U23k - 只有标题
-<div class="row">
-  <div class="col-md-10 col-md-offset-1">
-    <h3 class="reviewer-title">To Reviewer U23k</h3>
-    <p class="reviewer-subtitle">
-      
-    </p> -->
-   <!-- To Reviewer U23k - 第二个比较部分 -->
-  <div class="row">
-    <div class="col-md-10 col-md-offset-1">
-      <h3 class="reviewer-title">To Reviewer U23k</h3>
-      
-      <h3 class="text-center">Comparison to other methods (Zoom-in View)</h3>
-      <p class="text-center">
-        Detailed zoom-in comparison showing geometric consistency and visual quality.
-      </p>
 
-
-      <div id="baseline-compare-zoom">
-        <div class="methods-comparison-container">
-          <div class="methods-grid">
-            <!-- VMem -->
-            <div class="method-video-item">
-              <div class="method-video-container">
-                <div class="loading-spinner" id="loading-vmem-zoom">
-                  <div class="spinner"></div>
-                </div>
-                <video class="method-video" id="video-vmem-zoom" loop playsinline autoplay muted>
-                  <source src="zoom_in/vmem_1_00303.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-                <div class="method-label">VMem</div>
-              </div>
-              <div class="method-title">VMem</div>
-              <div class="method-description"></div>
-            </div>
-
-            <!-- VMem+ -->
-            <div class="method-video-item">
-              <div class="method-video-container">
-                <div class="loading-spinner" id="loading-vmem-plus-zoom">
-                  <div class="spinner"></div>
-                </div>
-                <video class="method-video" id="video-vmem-plus-zoom" loop playsinline autoplay muted>
-                  <source src="zoom_in/vmem_6_00303.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-                <div class="method-label">VMem+</div>
-              </div>
-              <div class="method-title">VMem+Anchor views</div>
-              <div class="method-description"></div>
-            </div>
-
-            <!-- SEVA -->
-            <div class="method-video-item">
-              <div class="method-video-container">
-                <div class="loading-spinner" id="loading-seva-zoom">
-                  <div class="spinner"></div>
-                </div>
-                <video class="method-video" id="video-seva-zoom" loop playsinline autoplay muted>
-                  <source src="zoom_in/seva_1_00303.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-                <div class="method-label">SEVA</div>
-              </div>
-              <div class="method-title">SEVA</div>
-              <div class="method-description"></div>
-            </div>
-
-            <!-- SEVA+ -->
-            <div class="method-video-item">
-              <div class="method-video-container">
-                <div class="loading-spinner" id="loading-seva-plus-zoom">
-                  <div class="spinner"></div>
-                </div>
-                <video class="method-video" id="video-seva-plus-zoom" loop playsinline autoplay muted>
-                  <source src="zoom_in/seva_6_00303.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-                <div class="method-label">SEVA+</div>
-              </div>
-              <div class="method-title">SEVA+Anchor views</div>
-              <div class="method-description"></div>
-            </div>
-
-            <!-- One2Scene (Ours) -->
-            <div class="method-video-item">
-              <div class="method-video-container">
-                <div class="loading-spinner" id="loading-ours-zoom">
-                  <div class="spinner"></div>
-                </div>
-                <video class="method-video" id="video-ours-zoom" loop playsinline autoplay muted>
-                  <source src="zoom_in/one2scene_00303.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-                <div class="method-label">One2Scene</div>
-              </div>
-              <div class="method-title">One2Scene (Ours)</div>
-              <div class="method-description"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="section-subtitle">Select Scene</div>
-        
-        <div class="pill-row scene-pills active" id="scene-pills-zoom" role="group">
-          <div class="pill scene-pill active" data-value="00303">
-            <img class="card-img" src="zoom_in/00303.png" alt="Scene 00303">
-          </div>
-          <div class="pill scene-pill" data-value="00441">
-            <img class="card-img" src="zoom_in/00441.png" alt="Scene 00441">
-          </div>
-          <div class="pill scene-pill" data-value="00488">
-            <img class="card-img" src="zoom_in/00488.png" alt="Scene 00488">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-<br /><br />
-
-
-<!-- To Reviewer 7LcG - 只有标题 -->
-<div class="row">
-  <div class="col-md-10 col-md-offset-1">
-    <h3 class="reviewer-title">To Reviewer 7LcG</h3>
-    <p class="reviewer-subtitle">
-      
-    </p>
-<!-- Additional Video Results Section -->
-<div class="row">
-  <div class="col-md-10 col-md-offset-1">
-    <h3 class="text-center">More Scene Exploration: Handling Details, Clutter & Real-World Images</h3>
-    <p class="text-center">
-      We demonstrate One2Scene's capability to generate geometrically consistent scenes across diverse styles and varying image quality. 
-    </p>
-  </div>
-</div>
-
-
-
-<div class="row">
-  <div class="col-md-10 col-md-offset-1">
-    <div class="gallery-grid" style="grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 900px; margin: 0 auto;">
-      
-      <div class="gallery-item">
-        <div class="card">
-          <video class="gallery-video" controls playsinline muted style="max-height: 380px;">
-            <source src="reviewer4/studio_fast.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          <div class="card-body">
-            <h5 class="card-title"></h5>
-            <p class="card-text"></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="gallery-item">
-        <div class="card">
-          <video class="gallery-video" controls playsinline muted style="max-height: 380px;">
-            <source src="reviewer4/auto_service_fast.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          <div class="card-body">
-            <h5 class="card-title"></h5>
-            <p class="card-text"> </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="gallery-item">
-        <div class="card">
-          <video class="gallery-video" controls playsinline muted style="max-height: 380px;">
-            <source src="reviewer4/christmas_fast.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          <div class="card-body">
-            <h5 class="card-title"></h5>
-            <p class="card-text"> </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="gallery-item">
-        <div class="card">
-          <video class="gallery-video" controls playsinline muted style="max-height: 380px;">
-            <source src="reviewer4/0013.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          <div class="card-body">
-            <h5 class="card-title"> </h5>
-            <p class="card-text"> </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="gallery-item">
-        <div class="card">
-          <video class="gallery-video" controls playsinline muted style="max-height: 380px;">
-            <source src="reviewer4/0020_video.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          <div class="card-body">
-            <h5 class="card-title"> </h5>
-            <p class="card-text">  </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="gallery-item">
-        <div class="card">
-          <video class="gallery-video" controls playsinline muted style="max-height: 380px;">
-            <source src="reviewer4/0030_video.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          <div class="card-body">
-            <h5 class="card-title"></h5>
-            <p class="card-text">  </p>
-          </div>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-</div>
-<br /><br />
-  <!-- JavaScript for reviewer section -->
-  <script>
-    document.querySelectorAll('#to-reviewer-3g7z .img-stage img').forEach(img => {
-      const stage = img.parentElement;
-      if (img.complete) {
-        stage.classList.add('loaded');
-      } else {
-        img.addEventListener('load', () => stage.classList.add('loaded'));
-        img.addEventListener('error', () => {
-          const note = document.createElement('div');
-          note.textContent = 'Image not found';
-          note.style.cssText = 'position:absolute;bottom:8px;left:8px;color:#999;font-size:11px;z-index:2';
-          stage.appendChild(note);
-          stage.classList.add('loaded');
-        });
-      }
-    });
-  </script>
-
-
-  <!-- JavaScript for video comparison -->
-  <script>
-    $(document).ready(function() {
-      let currentScene = '00028';
-      let isLoading = false;
-
-      const methodVideoMapping = {
-        'vmem': (scene) => `vmem_1_${scene}.mp4`,
-        'vmem-plus': (scene) => `vmem_6_${scene}.mp4`,
-        'seva': (scene) => `seva_1_${scene}.mp4`,
-        'seva-plus': (scene) => `seva_6_${scene}.mp4`,
-        'ours': (scene) => `one2scene_${scene}.mp4`
-      };
-
-      $('.scene-pill').on('click', function(e) {
-        e.preventDefault();
-        if (isLoading) {
-          console.log('⏳ Still loading videos, please wait...');
-          return;
-        }
-
-        const newScene = $(this).data('value');
-        if (newScene === currentScene) return;
-
-        $(this).siblings().removeClass('active');
-        $(this).addClass('active');
-        currentScene = newScene;
-        updateAllVideos(currentScene);
-      });
-
-      function updateAllVideos(scene) {
-        isLoading = true;
-        $('#baseline-compare .loading-spinner').show();
-        $('.method-video').animate({ opacity: 0.3 }, 200);
-        
-        const methods = ['vmem', 'vmem-plus', 'seva', 'seva-plus', 'ours'];
-        let loadedCount = 0;
-        const totalVideos = methods.length;
-        
-        methods.forEach(method => {
-          const video = document.getElementById(`video-${method}`);
-          if (video) {
-            const newSrc = `videos/comparison/${methodVideoMapping[method](scene)}`;
-            const source = video.querySelector('source');
-            if (source) source.src = newSrc;
-            
-            const onLoadedData = () => {
-              loadedCount++;
-              if (loadedCount === totalVideos) {
-                $('#baseline-compare .loading-spinner').hide();
-                $('.method-video').animate({ opacity: 1 }, 300);
-                isLoading = false;
-                console.log(`✅ All videos loaded for scene: ${scene}`);
-              }
-              video.removeEventListener('loadeddata', onLoadedData);
-            };
-            
-            const onError = () => {
-              console.warn(`Video failed to load: ${newSrc}`);
-              loadedCount++;
-              if (loadedCount === totalVideos) {
-                $('#baseline-compare .loading-spinner').hide();
-                $('.method-video').animate({ opacity: 1 }, 300);
-                isLoading = false;
-              }
-              video.removeEventListener('error', onError);
-            };
-            
-            video.addEventListener('loadeddata', onLoadedData);
-            video.addEventListener('error', onError);
-            video.load();
-          }
-        });
-        
-        setTimeout(() => {
-          if (isLoading) {
-            $('#baseline-compare .loading-spinner').hide();
-            $('.method-video').animate({ opacity: 1 }, 300);
-            isLoading = false;
-            console.warn('Video loading timeout');
-          }
-        }, 5000);
-        
-        console.log(`🔄 Switching to scene: ${scene}`);
-      }
-
-
-   // 第二个比较部分（Zoom）的独立控制
-      let currentSceneZoom = '00303';
-      let isLoadingZoom = false;
-
-      const methodVideoMappingZoom = {
-        'vmem': (scene) => `vmem_1_${scene}.mp4`,
-        'vmem-plus': (scene) => `vmem_6_${scene}.mp4`,
-        'seva': (scene) => `seva_1_${scene}.mp4`,
-        'seva-plus': (scene) => `seva_6_${scene}.mp4`,
-        'ours': (scene) => `one2scene_${scene}.mp4`
-      };
-
-      $('#baseline-compare-zoom .scene-pill').on('click', function(e) {
-        e.preventDefault();
-        if (isLoadingZoom) {
-          console.log('⏳ Still loading zoom videos, please wait...');
-          return;
-        }
-
-        const newScene = $(this).data('value');
-        if (newScene === currentSceneZoom) return;
-
-        $(this).siblings().removeClass('active');
-        $(this).addClass('active');
-        currentSceneZoom = newScene;
-        updateZoomVideos(currentSceneZoom);
-      });
-
-      function updateZoomVideos(scene) {
-        isLoadingZoom = true;
-        $('#baseline-compare-zoom .loading-spinner').show();
-        $('#baseline-compare-zoom .method-video').animate({ opacity: 0.3 }, 200);
-        
-        const methods = ['vmem-zoom', 'vmem-plus-zoom', 'seva-zoom', 'seva-plus-zoom', 'ours-zoom'];
-        let loadedCount = 0;
-        const totalVideos = methods.length;
-        
-        methods.forEach(method => {
-          const video = document.getElementById(`video-${method}`);
-          if (video) {
-            const methodName = method.replace('-zoom', '');
-            const newSrc = `zoom_in/${methodVideoMappingZoom[methodName](scene)}`;
-            const source = video.querySelector('source');
-            if (source) source.src = newSrc;
-            
-            const onLoadedData = () => {
-              loadedCount++;
-              if (loadedCount === totalVideos) {
-                $('#baseline-compare-zoom .loading-spinner').hide();
-                $('#baseline-compare-zoom .method-video').animate({ opacity: 1 }, 300);
-                isLoadingZoom = false;
-                console.log(`✅ All zoom videos loaded for scene: ${scene}`);
-              }
-              video.removeEventListener('loadeddata', onLoadedData);
-            };
-            
-            const onError = () => {
-              console.warn(`Zoom video failed to load: ${newSrc}`);
-              loadedCount++;
-              if (loadedCount === totalVideos) {
-                $('#baseline-compare-zoom .loading-spinner').hide();
-                $('#baseline-compare-zoom .method-video').animate({ opacity: 1 }, 300);
-                isLoadingZoom = false;
-              }
-              video.removeEventListener('error', onError);
-            };
-            
-            video.addEventListener('loadeddata', onLoadedData);
-            video.addEventListener('error', onError);
-            video.load();
-          }
-        });
-        
-        setTimeout(() => {
-          if (isLoadingZoom) {
-            $('#baseline-compare-zoom .loading-spinner').hide();
-            $('#baseline-compare-zoom .method-video').animate({ opacity: 1 }, 300);
-            isLoadingZoom = false;
-            console.warn('Zoom video loading timeout');
-          }
-        }, 5000);
-        
-        console.log(`🔄 Switching zoom to scene: ${scene}`);  }
-
-      $('.method-video').on('loadeddata', function() {
-        $(this).siblings('.loading-spinner').hide();
-      });
-
-      $('.method-video').on('error', function() {
-        console.warn('Video failed to load:', this.querySelector('source').src);
-        $(this).siblings('.loading-spinner').hide();
-      });
-
-      $('.method-video').on('mouseenter', function() {
-        $(this).get(0).pause();
-      }).on('mouseleave', function() {
-        $(this).get(0).play();
-      });
-    });
-  </script>
-
+ 
 
 
 </body>
